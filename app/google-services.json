@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "893961473817",
+    "firebase_url": "https://alamart-14e4e.firebaseio.com",
+    "project_id": "alamart-14e4e",
+    "storage_bucket": "alamart-14e4e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:893961473817:android:0213b6b4a4ecd082e2bf88",
+        "android_client_info": {
+          "package_name": "com.tugasbesar.alamart"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "893961473817-uitck5418o6ekmb1h66g365nh66uu4tm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAlDTmWviU8rnPyYCKYUaSpEWjwmCPPVMc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "893961473817-uitck5418o6ekmb1h66g365nh66uu4tm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
