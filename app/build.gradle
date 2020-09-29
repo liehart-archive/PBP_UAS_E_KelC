@@ -21,6 +21,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    buildFeatures {
+        dataBinding true
+    }
+
 }
 
 dependencies {
@@ -31,6 +36,17 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    // implementasi material design
     implementation 'com.google.android.material:material:1.2.1'
-    compile 'com.github.arimorty:floatingsearchview:2.1.1'
+
+    // implementasi floating search fiew
+    implementation 'com.github.arimorty:floatingsearchview:2.1.1'
+
+    // implementasi recycler view
+    implementation "androidx.recyclerview:recyclerview:1.1.0"
+
+    // implementasi swipe to refresh
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+
 }
