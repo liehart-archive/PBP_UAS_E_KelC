@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_number": "893961473817",
+    "firebase_url": "https://alamart-14e4e.firebaseio.com",
+    "project_id": "alamart-14e4e",
+    "storage_bucket": "alamart-14e4e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:893961473817:android:0213b6b4a4ecd082e2bf88",
+        "android_client_info": {
+          "package_name": "com.tugasbesar.alamart"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "893961473817-u1qicb1c8h596h91676f4mk9p0rt11qq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tugasbesar.alamart",
+            "certificate_hash": "60021b3362880c69951ac65efbdc5e5d30b94e8d"
+          }
+        },
+        {
+          "client_id": "893961473817-2jt69mkaifp9rc5uqedq7hhot33r68i3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tugasbesar.alamart",
+            "certificate_hash": "3117a9c84be390bfb54b317dcb45a1fa4d61754b"
+          }
+        },
+        {
+          "client_id": "893961473817-uitck5418o6ekmb1h66g365nh66uu4tm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAlDTmWviU8rnPyYCKYUaSpEWjwmCPPVMc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "893961473817-uitck5418o6ekmb1h66g365nh66uu4tm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

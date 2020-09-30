@@ -5,12 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.google.android.material.badge.BadgeDrawable;
-import com.google.android.material.bottomnavigation.BottomNavigationMenu;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.tugasbesar.alamart.auth.AuthActivity;
 import com.tugasbesar.alamart.databinding.ActivityMainBinding;
 import com.tugasbesar.alamart.item.Item;
 import com.tugasbesar.alamart.item.ItemAdapter;
@@ -22,8 +25,9 @@ public class MainActivity extends AppCompatActivity {
 
     private ArrayList<Item> items;
     private ItemAdapter adapter;
+    FirebaseAuth firebaseAuth;
+    FirebaseUser user;
     ActivityMainBinding binding;
-    BottomNavigationView.OnNavigationItemSelectedListener navigationListener;
     BottomNavigationView navigationView;
 
     @Override
@@ -36,6 +40,9 @@ public class MainActivity extends AppCompatActivity {
 
         adapter = new ItemAdapter(MainActivity.this, items);
         binding.setAdapter(adapter);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        user = firebaseAuth.getCurrentUser();
 
         loadFragment(new HomeFragment());
         navigationView = findViewById(R.id.bottom_navigation);
@@ -50,9 +57,20 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.search_page:
                         break;
                     case R.id.cart_page:
-                        fragment = new EmptyCartFragment();
+                        if (user != null) {
+                            fragment = new HomeFragment();
+                        } else {
+                            Intent intent = new Intent(MainActivity.this, AuthActivity.class);
+                            startActivity(intent);
+                        }
                         break;
                     case R.id.profile_page:
+                        if (user != null) {
+
+                        } else {
+                            Intent intent = new Intent(MainActivity.this, AuthActivity.class);
+                            startActivity(intent);
+                        }
                         break;
                 }
                 return loadFragment(fragment);
