@@ -18,6 +18,7 @@ import com.tugasbesar.alamart.databinding.ActivityMainBinding;
 import com.tugasbesar.alamart.item.Item;
 import com.tugasbesar.alamart.item.ItemAdapter;
 import com.tugasbesar.alamart.item.ItemList;
+import com.tugasbesar.alamart.profile.ProfileFragment;
 
 import java.util.ArrayList;
 
@@ -68,8 +69,9 @@ public class MainActivity extends AppCompatActivity {
                         if (user != null) {
 
                         } else {
-                            Intent intent = new Intent(MainActivity.this, AuthActivity.class);
-                            startActivity(intent);
+//                            Intent intent = new Intent(MainActivity.this, AuthActivity.class);
+//                            startActivity(intent);
+                            fragment = new ProfileFragment();
                         }
                         break;
                 }
