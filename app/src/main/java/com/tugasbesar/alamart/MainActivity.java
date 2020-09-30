@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         badgeDrawable.setNumber(99);
     }
 
-    private boolean loadFragment(Fragment fragment) {
+    public boolean loadFragment(Fragment fragment) {
         if (fragment != null) {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_layout, fragment)
