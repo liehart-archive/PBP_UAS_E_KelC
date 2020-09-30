@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EmptyCartFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_gravity="center"
+            android:layout_width="269dp"
+            android:layout_height="263dp"
+            android:contentDescription="Keranjang kosong"
+            android:src="@drawable/ic_undraw_not_found_60pq" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:text="Keranjang belanjamu masih kosong"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:paddingHorizontal="30dp"
+            android:text="Daripada kosong, mending explore ratusan snack lezat di Alamart"/>
+
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="183dp"
+            android:layout_height="62dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="32dp"
+            android:text="Explore Alamart"
+            android:enabled="false"
+            app:cornerRadius="32dp" />
+
+    </LinearLayout>
+
+
+
+
+</FrameLayout>
