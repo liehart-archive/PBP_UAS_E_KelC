@@ -7,7 +7,9 @@ import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -30,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     FirebaseUser user;
     ActivityMainBinding binding;
     BottomNavigationView navigationView;
+
+    boolean doubleTapToExit = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,20 +63,14 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.cart_page:
                         if (user != null) {
-                            fragment = new HomeFragment();
+                            fragment = new EmptyCartFragment();
                         } else {
                             Intent intent = new Intent(MainActivity.this, AuthActivity.class);
                             startActivity(intent);
                         }
                         break;
                     case R.id.profile_page:
-                        if (user != null) {
-
-                        } else {
-//                            Intent intent = new Intent(MainActivity.this, AuthActivity.class);
-//                            startActivity(intent);
-                            fragment = new ProfileFragment();
-                        }
+                        fragment = new ProfileFragment();
                         break;
                 }
                 return loadFragment(fragment);
@@ -81,9 +79,28 @@ public class MainActivity extends AppCompatActivity {
 
 //        Testing buat cart nanti
 
-        BadgeDrawable badgeDrawable = navigationView.getOrCreateBadge(R.id.cart_page);
-        badgeDrawable.isVisible();
-        badgeDrawable.setNumber(99);
+//        BadgeDrawable badgeDrawable = navigationView.getOrCreateBadge(R.id.cart_page);
+//        badgeDrawable.isVisible();
+//        badgeDrawable.setNumber(99);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (doubleTapToExit) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleTapToExit = true;
+        Toast.makeText(this, "Tekan sekali lagi untuk keluar", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleTapToExit=false;
+            }
+        }, 2000);
     }
 
     public boolean loadFragment(Fragment fragment) {

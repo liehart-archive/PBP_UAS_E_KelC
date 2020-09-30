@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.firebase.firestore.auth.User;
 import com.tugasbesar.alamart.R;
 
 public class ProfileFragment extends Fragment {
@@ -43,7 +44,7 @@ public class ProfileFragment extends Fragment {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.profile_setting:
-                        Intent intent = new Intent(getActivity(), SettingsActivity.class);
+                        Intent intent = new Intent(getActivity(), UserSettingActivity.class);
                         startActivity(intent);
                         break;
                 }

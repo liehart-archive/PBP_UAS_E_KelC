@@ -15,4 +15,26 @@
         <item name="android:windowBackground">@drawable/splash_screen</item>
     </style>
 
+    <style name="AppThemeWithToolbar" parent="Theme.MaterialComponents.Light">
+        <item name="android:statusBarColor">@android:color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar">true</item>
+        <item name="android:navigationBarColor">@android:color/white</item>
+
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="toolbarStyle">@style/CustomToolBarStyle</item>
+        <item name="actionBarStyle">@style/MyActionBar</item>
+    </style>
+
+
+    <style name="MyActionBar" parent="@style/Widget.AppCompat.Light.ActionBar.Solid">
+        <item name="background">@color/primaryWhite</item>
+    </style>
+
+    <style name="CustomToolBarStyle" parent="@style/Widget.AppCompat.Toolbar">
+        <item name="titleTextColor">@color/colorPrimary</item>
+    </style>
+
 </resources>
