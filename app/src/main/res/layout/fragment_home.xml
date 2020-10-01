@@ -10,11 +10,7 @@
             type="com.tugasbesar.alamart.item.ItemAdapter"/>
     </data>
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".HomeFragment">
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -22,7 +18,9 @@
                 android:id="@+id/appBarLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:gravity="top"
+                android:layout_alignParentTop="true">
 
                 <com.google.android.material.appbar.MaterialToolbar
                     android:id="@+id/topAppBar"
@@ -35,17 +33,16 @@
             </com.google.android.material.appbar.AppBarLayout>
 
             <androidx.recyclerview.widget.RecyclerView
+                app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
                 android:id="@+id/recycler_view_item"
+                android:layout_marginTop="56dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:adapter="@{Adapter}"
                 app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
-                app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
                 app:spanCount="2"
                 tools:layout_editor_absoluteX="0dp"
                 tools:listitem="@layout/adapter_item" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </FrameLayout>
-
+        </RelativeLayout>
 </layout>

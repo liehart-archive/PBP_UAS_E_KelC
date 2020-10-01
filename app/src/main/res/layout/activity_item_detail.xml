@@ -15,20 +15,40 @@
             layout="@layout/activity_item_detail_content" />
     </ScrollView>
 
-
-    <LinearLayout
+    <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/item_detail_bottom_bar"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:gravity="bottom"
-        android:layout_alignParentBottom="true"
-        android:layout_height="50dp">
-        <Button
+        android:layout_alignParentBottom="true">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Tambah Ke Keranjang"
-            android:textColor="@color/primaryWhite"
-            android:textSize="20sp"
-            android:background="@color/colorAccent"/>
-    </LinearLayout>
+            android:layout_height="wrap_content">
+            <Button
+                android:layout_marginVertical="4dp"
+                android:id="@+id/btn_cancel"
+                android:text="Share"
+                android:layout_gravity="center"
+                android:layout_weight="0.8"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+            <Button
+                android:layout_marginVertical="4dp"
+                android:id="@+id/btn_add"
+                android:text="Beli"
+                android:layout_gravity="center"
+                android:layout_weight="0.8"
+                android:layout_width="match_parent"
+                android:layout_marginEnd="8dp"
+                android:layout_height="wrap_content"
+                />
+        </LinearLayout>
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+
 
 </RelativeLayout>
