@@ -1,5 +1,14 @@
 package com.tugasbesar.alamart.item;
 
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import androidx.databinding.BindingAdapter;
+
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 public class Item {
@@ -9,10 +18,11 @@ public class Item {
     public String maker;
     public ArrayList<String> category;
     public int size;
-    public int price;
+    public double price;
     public int stock;
+    public int discount;
 
-    public Item(String name, String description, String maker, ArrayList<String> category, int size, int price, int stock) {
+    public Item(String name, String description, String maker, ArrayList<String> category, int size, double price, int stock, int discount) {
         this.name = name;
         this.description = description;
         this.maker = maker;
@@ -20,6 +30,7 @@ public class Item {
         this.size = size;
         this.price = price;
         this.stock = stock;
+        this.discount = discount;
     }
 
     public String getName() {
@@ -62,8 +73,14 @@ public class Item {
         this.size = size;
     }
 
-    public int getPrice() {
-        return price;
+    public String getPrice() {
+        NumberFormat numberFormat = NumberFormat.getCurrencyInstance();
+        numberFormat.setMaximumFractionDigits(0);
+        return numberFormat.format(this.price);
+    }
+
+    public double getPriceInt() {
+        return this.price;
     }
 
     public void setPrice(int price) {
@@ -85,4 +102,29 @@ public class Item {
     public void removeCategory(String s) {
         this.category.remove(s);
     }
+
+    public int getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(int discount) {
+        this.discount = discount;
+    }
+
+    @BindingAdapter("showDiscount")
+    public static void setDiscount(LinearLayout view, int discount) {
+        if (discount > 0) {
+            view.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @BindingAdapter({"bind:discount", "bind:price"})
+    public static void setDiscountedPrice(TextView view, int discount, double price) {
+        if (discount > 0) {
+            NumberFormat numberFormat = NumberFormat.getCurrencyInstance();
+            numberFormat.setMaximumFractionDigits(0);
+            view.setText(numberFormat.format(price - (price * discount / 100)));
+        }
+    }
+
 }

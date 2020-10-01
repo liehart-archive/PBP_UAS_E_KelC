@@ -2,10 +2,8 @@ package com.tugasbesar.alamart;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -21,22 +19,14 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.tugasbesar.alamart.auth.AuthActivity;
-import com.tugasbesar.alamart.databinding.ActivityMainBinding;
-import com.tugasbesar.alamart.item.Item;
-import com.tugasbesar.alamart.item.ItemAdapter;
-import com.tugasbesar.alamart.item.ItemList;
 import com.tugasbesar.alamart.profile.ProfileFragment;
 
-import java.util.ArrayList;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ArrayList<Item> items;
-    private ItemAdapter adapter;
     FirebaseAuth firebaseAuth;
     FirebaseUser user;
-    ActivityMainBinding binding;
     BottomNavigationView navigationView;
 
     SharedPreferences sharedPreferences;
@@ -63,12 +53,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-
-        items = new ItemList().items;
-
-        adapter = new ItemAdapter(MainActivity.this, items);
-        binding.setAdapter(adapter);
+        setContentView(R.layout.activity_main);
 
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();

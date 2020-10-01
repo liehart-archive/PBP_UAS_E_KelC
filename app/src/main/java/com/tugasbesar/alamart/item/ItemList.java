@@ -18,11 +18,25 @@ public class ItemList {
                 "Glico",
                 category,
                 47,
-                8800,
-                500
+                26234,
+                500,
+                99
                 ));
         category.clear();
-        category.add("Meiji");
+        category.add("Biscuit");
+        category.add("Pocky");
+        items.add(new Item(
+                "Glico Pocky - Matcha Green Tea",
+                "Satisfy two Japanese food cravings at the same time with Glico's Pocky matcha green tea flavoured chocolate biscuit sticks. ",
+                "Glico",
+                category,
+                39,
+                25284,
+                500,
+                0
+        ));
+        category.clear();
+        category.add("Pocky");
         category.add("Biscuit");
         items.add(new Item(
                 "Meiji Hello Panda Double Chocolate Biscuits",
@@ -30,8 +44,32 @@ public class ItemList {
                 "Meiji",
                 category,
                 50,
-                9700,
-                500
+                19290,
+                500,
+                25
+        ));
+        category.clear();
+        category.add("Pocky");
+        category.add("Biscuit");
+        items.add(new Item(
+                "Glico Pocky - Almond Crush",
+                "A match made in Heaven! This box contains two single-serve packets of premium quality Pocky.",
+                "Glico",
+                category,
+                46,
+                87490,
+                500,
+                0
+        ));
+        items.add(new Item(
+                "Glico Pocky - Almond Crush",
+                "A match made in Heaven! This box contains two single-serve packets of premium quality Pocky.",
+                "Glico",
+                category,
+                46,
+                87490,
+                500,
+                0
         ));
     }
 }

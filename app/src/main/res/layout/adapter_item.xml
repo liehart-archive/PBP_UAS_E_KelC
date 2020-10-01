@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
@@ -9,11 +9,12 @@
             type="com.tugasbesar.alamart.item.Item" />
     </data>
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/parentAdapter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="3dp"
-        android:id="@+id/ParentAdapter"
+        android:clickable="true"
+        android:elevation="3dp"
         tools:context=".item.ItemAdapter">
 
         <LinearLayout
@@ -21,24 +22,89 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tvItemName"
+            <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@{item.name}"
-                android:textStyle="bold"
-                android:textSize="14sp" />
+                android:layout_height="194dp"
+                app:srcCompat="@drawable/pocky_2"
+                android:scaleType="centerCrop"
+                android:contentDescription="Images"
+                />
 
-            <TextView
-                android:id="@+id/tvItemDescription"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@{item.description}"
-                android:textSize="12sp"/>
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="vertical"
+               android:padding="8dp">
 
+               <TextView
+                   android:id="@+id/tvItemName"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_marginBottom="3dp"
+                   android:text="@{item.name + ` ` + Integer.toString(item.size) + ` g`}" />
+
+               <LinearLayout
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:orientation="horizontal"
+                   android:gravity="center"
+                   android:visibility="gone"
+                   app:showDiscount="@{item.discount}">
+
+                   <TextView
+                       android:id="@+id/tvItemPriceDiscount"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:text="@{item.price}"
+                       android:textSize="12dp"
+                       android:background="@drawable/strikethru_text"
+                       android:textColor="#8d8d8d"
+                       />
+
+                   <LinearLayout
+                       android:orientation="vertical"
+                       android:layout_marginStart="5dp"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:background="@drawable/rounded_edge">
+                       <TextView
+                           android:id="@+id/tvItemPriceDiscountPercentage"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:text="@{Integer.toString(item.discount) + ` %`}"
+                           android:textSize="12dp"
+                           android:paddingVertical="3dp"
+                           android:paddingHorizontal="5dp"
+                           android:textColor="#DADADA" />
+                   </LinearLayout>
+
+               </LinearLayout>
+
+
+               <TextView
+                   android:id="@+id/tvItemPrice"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:text="@{item.price}"
+                   android:textSize="15sp"
+                   android:textColor="@color/colorPrimary"
+                   android:textStyle="bold"
+                   app:discount="@{item.discount}"
+                   app:price="@{item.getPriceInt}"/>
+
+               <RatingBar
+                   android:id="@+id/rating"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_marginTop="5dp"
+                   style="?android:attr/ratingBarStyleSmall"
+                   android:numStars="5"
+                   android:stepSize="0.1"
+                   android:isIndicator="true" />
+
+           </LinearLayout>
         </LinearLayout>
 
 
-
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 </layout>
