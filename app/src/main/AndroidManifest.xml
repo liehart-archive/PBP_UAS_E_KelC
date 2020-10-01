@@ -12,9 +12,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Launcher">
+        <activity android:name=".item.ItemDetail"></activity>
         <activity
             android:name=".profile.UserSettingActivity"
-            android:label="@string/title_activity_user_setting"></activity>
+            android:label="@string/title_activity_user_setting" />
         <activity android:name=".auth.AuthActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

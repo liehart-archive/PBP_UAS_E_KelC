@@ -7,6 +7,9 @@
         <variable
             name="item"
             type="com.tugasbesar.alamart.item.Item" />
+        <variable
+            name="itemClick"
+            type="com.tugasbesar.alamart.item.ItemClickListener" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -15,7 +18,8 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:elevation="3dp"
-        tools:context=".item.ItemAdapter">
+        tools:context=".item.ItemAdapter"
+        android:onClick="@{()-> itemClick.cardClicked(item)}">
 
         <LinearLayout
             android:layout_width="match_parent"

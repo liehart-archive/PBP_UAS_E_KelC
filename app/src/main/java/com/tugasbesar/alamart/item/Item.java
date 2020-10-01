@@ -1,13 +1,11 @@
 package com.tugasbesar.alamart.item;
 
-import android.graphics.Color;
-import android.graphics.Paint;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import androidx.databinding.BindingAdapter;
-
 import java.text.NumberFormat;
 import java.util.ArrayList;
 
@@ -126,5 +124,4 @@ public class Item {
             view.setText(numberFormat.format(price - (price * discount / 100)));
         }
     }
-
 }

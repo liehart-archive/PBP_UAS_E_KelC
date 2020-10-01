@@ -1,22 +1,19 @@
 package com.tugasbesar.alamart.item;
 
 import android.content.Context;
-import android.graphics.Rect;
+import android.content.Intent;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.tugasbesar.alamart.BR;
 import com.tugasbesar.alamart.R;
 import com.tugasbesar.alamart.databinding.AdapterItemBinding;
 
 import java.util.List;
 
-public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder> {
+public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder> implements ItemClickListener{
 
     private Context context;
     private List<Item> result;
@@ -39,12 +36,20 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
     public void onBindViewHolder(@NonNull ItemAdapter.ItemViewHolder holder, int position) {
         Item item = result.get(position);
         holder.bind(item);
+        holder.binding.setItemClick(this);
     }
 
     @Override
     public int getItemCount() {
         return result.size();
     }
+
+    @Override
+    public void cardClicked(Item item) {
+        Intent intent = new Intent(context, ItemDetail.class);
+        context.startActivity(intent);
+    }
+
 
     public class ItemViewHolder extends RecyclerView.ViewHolder{
         public AdapterItemBinding binding;

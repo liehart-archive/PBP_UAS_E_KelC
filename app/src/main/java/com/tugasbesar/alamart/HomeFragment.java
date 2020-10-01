@@ -9,14 +9,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.google.android.material.appbar.MaterialToolbar;
 import com.tugasbesar.alamart.databinding.FragmentHomeBinding;
 import com.tugasbesar.alamart.item.Item;
 import com.tugasbesar.alamart.item.ItemAdapter;
 import com.tugasbesar.alamart.item.ItemList;
-import com.tugasbesar.alamart.item.SpaceItemDecorator;
+import com.tugasbesar.alamart.item.ItemSpaceDecorator;
 
 import java.util.ArrayList;
 
@@ -42,7 +40,7 @@ public class HomeFragment extends Fragment {
         adapter = new ItemAdapter(getContext(), items);
         fragmentHomeBinding.setAdapter(adapter);
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view_item);
-        recyclerView.addItemDecoration(new SpaceItemDecorator(30));
+        recyclerView.addItemDecoration(new ItemSpaceDecorator(30));
         return view;
     }
 }
