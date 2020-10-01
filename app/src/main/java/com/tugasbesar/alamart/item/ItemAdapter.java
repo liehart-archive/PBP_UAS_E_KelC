@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.gson.Gson;
 import com.tugasbesar.alamart.BR;
 import com.tugasbesar.alamart.R;
 import com.tugasbesar.alamart.databinding.AdapterItemBinding;
@@ -46,7 +48,10 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
 
     @Override
     public void cardClicked(Item item) {
+        Gson gson = new Gson();
+        String strItem = gson.toJson(item);
         Intent intent = new Intent(context, ItemDetail.class);
+        intent.putExtra("objItem", strItem);
         context.startActivity(intent);
     }
 
