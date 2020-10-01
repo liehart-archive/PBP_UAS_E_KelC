@@ -1,8 +1,18 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <ListPreference
+        android:title="@string/setting_bahasa"
+        android:summary="Bahasa Indonesia"
+        android:key="languageKey"
+        android:defaultValue="1"
+        app:iconSpaceReserved="false"
+        android:entries="@array/lang_listArray"
+        android:entryValues="@array/lang_listValues" />
+
     <Preference
+        android:key="@string/exit_app"
         android:icon="@drawable/ic_baseline_exit_to_app_24"
-        android:title="Keluar" />
+        android:title="@string/setting_exit" />
 
 </PreferenceScreen>

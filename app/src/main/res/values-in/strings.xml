@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Alamart</string>
+    <string name="cart_empty_img_desc">Keranjang kosong</string>
+    <string name="cart_empty_title">Keranjang belanjamu masih kosong</string>
+    <string name="cart_emtpy_subtitle">Daripada kosong, mending explore ratusan snack lezat di Alamart</string>
+    <string name="cart_empty_back_button">Jelajahi Alamart</string>
+    <string name="menu_beranda">Beranda</string>
+    <string name="menu_telusuri">Telusuri</string>
+    <string name="menu_keranjang">Keranjang</string>
+    <string name="menu_akun">Akun</string>
+    <string name="setting_bahasa">Bahasa</string>
+    <string name="setting_exit">Keluar</string>
+</resources>

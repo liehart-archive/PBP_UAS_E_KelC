@@ -1,6 +1,7 @@
 package com.tugasbesar.alamart.auth;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -29,6 +30,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 
+import com.tugasbesar.alamart.MainActivity;
 import com.tugasbesar.alamart.R;
 
 public class LoginFragment extends Fragment  {
@@ -156,13 +158,13 @@ public class LoginFragment extends Fragment  {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            FirebaseUser user = firebaseAuth.getCurrentUser();
                             ((AuthActivity) getActivity()).addNotification(
                                     "Login Berhasil",
                                     "Selamat anda telah berhasil login."
                             );
-                            FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                            transaction.hide(LoginFragment.this).commit();
+                            Intent intent = new Intent(getActivity(), MainActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
                             Toast.makeText(getActivity().getApplicationContext(), "Login success", Toast.LENGTH_SHORT).show();
                         } else {
                             if (task.getException() instanceof FirebaseAuthInvalidUserException) {

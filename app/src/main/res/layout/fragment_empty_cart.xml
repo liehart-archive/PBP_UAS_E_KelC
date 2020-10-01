@@ -17,7 +17,7 @@
             android:layout_gravity="center"
             android:layout_width="269dp"
             android:layout_height="263dp"
-            android:contentDescription="Keranjang kosong"
+            android:contentDescription="@string/cart_empty_img_desc"
             android:src="@drawable/ic_undraw_not_found_60pq" />
 
         <TextView
@@ -26,13 +26,13 @@
             android:textAlignment="center"
             android:textSize="20dp"
             android:textStyle="bold"
-            android:text="Keranjang belanjamu masih kosong"/>
+            android:text="@string/cart_empty_title"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:paddingHorizontal="30dp"
-            android:text="Daripada kosong, mending explore ratusan snack lezat di Alamart"/>
+            android:text="@string/cart_emtpy_subtitle"/>
 
         <Button
             android:id="@+id/btnLogin"
@@ -40,7 +40,7 @@
             android:layout_height="62dp"
             android:layout_gravity="center"
             android:layout_marginTop="32dp"
-            android:text="Explore Alamart"
+            android:text="@string/cart_empty_back_button"
             android:enabled="false"
             app:cornerRadius="32dp" />
 

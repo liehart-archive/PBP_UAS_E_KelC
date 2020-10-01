@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Alamart</string>
+    <string name="cart_empty_img_desc">Cart is empty</string>
+    <string name="cart_empty_back_button">Explore Alamart</string>
+    <string name="cart_empty_title">Your shopping cart is empty</string>
+    <string name="cart_emtpy_subtitle">Let\'s go and explore delicous snack with Alamart</string>
+    <string name="menu_beranda">Home</string>
+    <string name="menu_telusuri">Explore</string>
+    <string name="menu_keranjang">Cart</string>
+    <string name="menu_akun">Account</string>
+    <string name="setting_bahasa">Language</string>
+    <string name="setting_exit">Exit</string>
+</resources>
