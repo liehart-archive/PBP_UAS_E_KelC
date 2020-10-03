@@ -57,4 +57,7 @@ dependencies {
     // implementasi gson
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.squareup.retrofit2:converter-gson:2.7.1'
+
+    // implementasi shimmer
+    implementation 'com.facebook.shimmer:shimmer:0.5.0'
 }

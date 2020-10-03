@@ -1,7 +1,5 @@
 package com.tugasbesar.alamart.item;
 
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -19,6 +17,7 @@ public class Item {
     public double price;
     public int stock;
     public int discount;
+    public int terjual;
 
     public Item(String name, String description, String maker, ArrayList<String> category, int size, double price, int stock, int discount) {
         this.name = name;
@@ -29,6 +28,7 @@ public class Item {
         this.price = price;
         this.stock = stock;
         this.discount = discount;
+        this.terjual = 0;
     }
 
     public String getName() {
@@ -71,13 +71,7 @@ public class Item {
         this.size = size;
     }
 
-    public String getPrice() {
-        NumberFormat numberFormat = NumberFormat.getCurrencyInstance();
-        numberFormat.setMaximumFractionDigits(0);
-        return numberFormat.format(this.price);
-    }
-
-    public double getPriceInt() {
+    public double getPrice() {
         return this.price;
     }
 
@@ -109,6 +103,25 @@ public class Item {
         this.discount = discount;
     }
 
+    public int getTerjual() {
+        return terjual;
+    }
+
+    public void setTerjual(int terjual) {
+        this.terjual = terjual;
+    }
+
+    public void addTerjual(int jumlah) {
+        this.terjual += jumlah;
+    }
+
+    @BindingAdapter("showPrice")
+    public static void setPriceString(TextView view, double price) {
+        NumberFormat numberFormat = NumberFormat.getCurrencyInstance();
+        numberFormat.setMaximumFractionDigits(0);
+        view.setText(numberFormat.format(price));
+    }
+
     @BindingAdapter("showDiscount")
     public static void setDiscount(LinearLayout view, int discount) {
         if (discount > 0) {
@@ -116,12 +129,14 @@ public class Item {
         }
     }
 
-    @BindingAdapter({"bind:discount", "bind:price"})
+    @BindingAdapter({"discount", "price"})
     public static void setDiscountedPrice(TextView view, int discount, double price) {
+        NumberFormat numberFormat = NumberFormat.getCurrencyInstance();
+        numberFormat.setMaximumFractionDigits(0);
         if (discount > 0) {
-            NumberFormat numberFormat = NumberFormat.getCurrencyInstance();
-            numberFormat.setMaximumFractionDigits(0);
             view.setText(numberFormat.format(price - (price * discount / 100)));
+        } else {
+            view.setText(numberFormat.format(price));
         }
     }
 }

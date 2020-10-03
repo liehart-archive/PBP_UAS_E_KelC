@@ -59,10 +59,10 @@
                        android:id="@+id/tvItemPriceDiscount"
                        android:layout_width="match_parent"
                        android:layout_height="wrap_content"
-                       android:text="@{item.price}"
                        android:textSize="12dp"
                        android:background="@drawable/strikethru_text"
                        android:textColor="#8d8d8d"
+                       app:showPrice="@{item.price}"
                        />
 
                    <LinearLayout
@@ -89,12 +89,11 @@
                    android:id="@+id/tvItemPrice"
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
-                   android:text="@{item.price}"
                    android:textSize="15sp"
                    android:textColor="@color/colorPrimary"
                    android:textStyle="bold"
                    app:discount="@{item.discount}"
-                   app:price="@{item.getPriceInt}"/>
+                   app:price="@{item.price}"/>
 
                <RatingBar
                    android:id="@+id/rating"

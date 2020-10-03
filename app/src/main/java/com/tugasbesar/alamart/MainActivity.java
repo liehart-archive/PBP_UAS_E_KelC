@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.tugasbesar.alamart.auth.AuthActivity;
 import com.tugasbesar.alamart.profile.ProfileFragment;
+import com.tugasbesar.alamart.search.SearchActivity;
 
 import java.util.Locale;
 
@@ -28,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     FirebaseUser user;
     BottomNavigationView navigationView;
-
+    Intent intent;
     SharedPreferences sharedPreferences;
 
     boolean doubleTapToExit = false;
@@ -45,13 +46,13 @@ public class MainActivity extends AppCompatActivity {
             editor.putString("value", getResources().getConfiguration().getLocales().get(0).toString());
             editor.commit();
         }
-
-        if (locale.equals("en_US")) {
-            setApplicationLocale("en");
-        } else {
-            setApplicationLocale("id");
-        }
-
+//
+//        if (locale.equals("en_US")) {
+//            setApplicationLocale("en");
+//        } else {
+//            setApplicationLocale("id");
+//        }
+//
 
         setContentView(R.layout.activity_main);
 
@@ -68,12 +69,14 @@ public class MainActivity extends AppCompatActivity {
                         fragment = new HomeFragment();
                         break;
                     case R.id.search_page:
+                        intent = new Intent(MainActivity.this, SearchActivity.class);
+                        startActivity(intent);
                         break;
                     case R.id.cart_page:
                         if (user != null) {
                             fragment = new EmptyCartFragment();
                         } else {
-                            Intent intent = new Intent(MainActivity.this, AuthActivity.class);
+                            intent = new Intent(MainActivity.this, AuthActivity.class);
                             startActivity(intent);
                         }
                         break;

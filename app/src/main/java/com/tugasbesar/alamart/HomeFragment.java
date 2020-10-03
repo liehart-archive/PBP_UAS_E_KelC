@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.tugasbesar.alamart.databinding.FragmentHomeBinding;
 import com.tugasbesar.alamart.item.Item;
 import com.tugasbesar.alamart.item.ItemAdapter;
@@ -37,6 +38,13 @@ public class HomeFragment extends Fragment {
         fragmentHomeBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
         View view = fragmentHomeBinding.getRoot();
         items = new ItemList().items;
+
+//        FirebaseFirestore db = FirebaseFirestore.getInstance();
+//        for (Item item : items) {
+//            db.collection("items").add(item);
+//        }
+
+
         adapter = new ItemAdapter(getContext(), items);
         fragmentHomeBinding.setAdapter(adapter);
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view_item);
