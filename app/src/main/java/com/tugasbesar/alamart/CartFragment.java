@@ -1,64 +1,76 @@
 package com.tugasbesar.alamart;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link CartFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.tugasbesar.alamart.cart.Cart;
+import com.tugasbesar.alamart.cart.CartAdapter;
+import com.tugasbesar.alamart.cart.CartDao;
+import com.tugasbesar.alamart.cart.CartDatabaseClient;
+import com.tugasbesar.alamart.cart.CartSpaceDecorator;
+import com.tugasbesar.alamart.databinding.FragmentCartBinding;
+import com.tugasbesar.alamart.item.ItemSpaceDecorator;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class CartFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public CartFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment CartFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static CartFragment newInstance(String param1, String param2) {
-        CartFragment fragment = new CartFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    private FragmentCartBinding adapterCartBinding;
+    private RecyclerView recyclerView;
+    private CartAdapter adapter;
+    public CartFragment() {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_cart, container, false);
+
+        adapterCartBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_cart, container, false);
+        View view = adapterCartBinding.getRoot();
+
+        recyclerView = view.findViewById(R.id.recycler_view_cart);
+        getCarts();
+        recyclerView.addItemDecoration(new CartSpaceDecorator(30));
+        return view;
+    }
+
+    private void getCarts() {
+
+        class GetCart extends AsyncTask<Void, Void, List<Cart>> {
+
+            @Override
+            protected List<Cart> doInBackground(Void... voids) {
+                CartDao client = CartDatabaseClient.getInstance(getActivity().getApplicationContext()).getDatabase().cartDao();
+
+                List<Cart> carts = client.getAll();
+
+                return carts;
+            }
+
+            @Override
+            protected void onPostExecute(List<Cart> carts) {
+                super.onPostExecute(carts);
+                adapter = new CartAdapter(getContext(), carts);
+                recyclerView.setAdapter(adapter);
+            }
+        }
+
+        GetCart getCart = new GetCart();
+        getCart.execute();
+
     }
 }

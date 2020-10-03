@@ -4,25 +4,23 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.tugasbesar.alamart.item.Item;
+
 import java.io.Serializable;
 
 @Entity
 public class Cart implements Serializable {
-
-    // TODO:
-    // Buat model entity cart. Isinya int id, int kode item, int jumlah barang, int total harga
-    // Buat model entity cart. Isinya int id, int kode item, int jumlah barang, int total harga
     @PrimaryKey(autoGenerate = true)
     public int id;
 
-    @ColumnInfo(name = "Kode_item")
-    public int KodeItem;
+    @ColumnInfo(name = "id_barang")
+    public String id_barang;
 
-    @ColumnInfo(name = "Jumlah_barang")
+    @ColumnInfo(name = "jumlah_barang")
     public int jumlahBarang;
 
-    @ColumnInfo(name = "Total_Harga")
-    public int TotalHarga;
+    @ColumnInfo(name = "total_harga")
+    public double TotalHarga;
 
     public int getId() {
         return id;
@@ -32,12 +30,12 @@ public class Cart implements Serializable {
         this.id = id;
     }
 
-    public int getKodeItem() {
-        return KodeItem;
+    public String getId_barang() {
+        return id_barang;
     }
 
-    public void setKodeItem(int KodeItem) {
-        this.KodeItem = KodeItem;
+    public void setId_barang(String id_barang) {
+        this.id_barang = id_barang;
     }
 
     public int getJumlahBarang() {
@@ -48,12 +46,11 @@ public class Cart implements Serializable {
         this.jumlahBarang = jumlahBarang;
     }
 
-    public int getTotalHarga() {
+    public double getTotalHarga() {
         return TotalHarga;
     }
 
-    public void setTotalHarga(int TotalHarga) {
-        this.TotalHarga = TotalHarga;
+    public void setTotalHarga(double totalHarga) {
+        TotalHarga = totalHarga;
     }
-
 }

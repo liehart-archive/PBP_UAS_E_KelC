@@ -5,21 +5,25 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.databinding.BindingAdapter;
 import java.text.NumberFormat;
-import java.util.ArrayList;
+import java.util.List;
 
 public class Item {
 
+    public String uuid;
     public String name;
     public String description;
     public String maker;
-    public ArrayList<String> category;
+    public List<String> category;
     public int size;
     public double price;
     public int stock;
     public int discount;
     public int terjual;
 
-    public Item(String name, String description, String maker, ArrayList<String> category, int size, double price, int stock, int discount) {
+    public Item() {}
+
+    public Item(int terjual, int size, double price, String name, String description, int discount, List<String> category, int stock, String uuid) {
+        this.uuid = uuid;
         this.name = name;
         this.description = description;
         this.maker = maker;
@@ -29,6 +33,14 @@ public class Item {
         this.stock = stock;
         this.discount = discount;
         this.terjual = 0;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
     public String getName() {
@@ -55,11 +67,11 @@ public class Item {
         this.maker = maker;
     }
 
-    public ArrayList<String> getCategory() {
+    public List<String> getCategory() {
         return category;
     }
 
-    public void setCategory(ArrayList<String> category) {
+    public void setCategory(List<String> category) {
         this.category = category;
     }
 
@@ -75,7 +87,7 @@ public class Item {
         return this.price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 

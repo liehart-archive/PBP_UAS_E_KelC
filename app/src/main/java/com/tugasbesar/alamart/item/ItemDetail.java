@@ -3,10 +3,12 @@ package com.tugasbesar.alamart.item;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.loader.content.AsyncTaskLoader;
 
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,6 +19,10 @@ import android.widget.Toast;
 import com.google.android.material.button.MaterialButton;
 import com.google.gson.Gson;
 import com.tugasbesar.alamart.R;
+import com.tugasbesar.alamart.cart.Cart;
+import com.tugasbesar.alamart.cart.CartAppDatabase;
+import com.tugasbesar.alamart.cart.CartDao;
+import com.tugasbesar.alamart.cart.CartDatabaseClient;
 
 import java.text.NumberFormat;
 
@@ -25,7 +31,7 @@ public class ItemDetail extends AppCompatActivity {
     Item item;
     TextView itemTitle, itemPrice, itemDiscount, itemDiscountPrice, itemDescription;
     NumberFormat numberFormat;
-    private MaterialButton btnFav, btnShare;
+    private MaterialButton btnFav, btnShare, btnAdd;
     private boolean btnFavState;
     private String priceString;
 
@@ -45,6 +51,7 @@ public class ItemDetail extends AppCompatActivity {
 
         btnFav = findViewById(R.id.btn_item_favourite);
         btnShare = findViewById(R.id.btn_share);
+        btnAdd = findViewById(R.id.btn_add);
 
         itemTitle = findViewById(R.id.itemName);
         itemPrice = findViewById(R.id.itemPrice);
@@ -101,6 +108,55 @@ public class ItemDetail extends AppCompatActivity {
                 startActivity(shareIntent);
             }
         });
+
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                add2Cart(item);
+            }
+        });
+    }
+
+    private void add2Cart(Item i) {
+
+        final Item item = i;
+
+        class AddCart extends AsyncTask<Void, Void, Void> {
+
+            public String message;
+
+            @Override
+            protected Void doInBackground(Void... voids) {
+                CartDao client = CartDatabaseClient.getInstance(getApplicationContext()).getDatabase().cartDao();
+                Cart daoCart = client.getCartByUUID(item.uuid);
+
+                if (daoCart == null) {
+                    Cart cart = new Cart();
+                    cart.setId_barang(item.uuid);
+                    cart.setJumlahBarang(1);
+                    cart.setTotalHarga(item.price * 1);
+                    client.insert(cart);
+                    message = "Produk berhasil ditambahkan";
+                } else {
+                    daoCart.setJumlahBarang(daoCart.jumlahBarang++);
+                    daoCart.setTotalHarga(item.price * daoCart.jumlahBarang++);
+                    client.update(daoCart);
+                    message = "Kuantitas produk berhasil ditambah";
+                }
+
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                finish();
+                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        AddCart addCart = new AddCart();
+        addCart.execute();
     }
 
     @Override

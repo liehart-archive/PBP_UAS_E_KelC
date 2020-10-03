@@ -1,7 +1,6 @@
 package com.tugasbesar.alamart.cart;
 
 import android.content.Context;
-
 import androidx.room.Room;
 
 public class CartDatabaseClient {
@@ -16,7 +15,7 @@ public class CartDatabaseClient {
     }
 
     public static synchronized CartDatabaseClient getInstance(Context context){
-        if (databaseClient==null){
+        if (databaseClient == null){
             databaseClient = new CartDatabaseClient(context);
         }
         return databaseClient;

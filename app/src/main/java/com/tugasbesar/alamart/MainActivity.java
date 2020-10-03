@@ -76,8 +76,9 @@ public class MainActivity extends AppCompatActivity {
                         if (user != null) {
                             fragment = new EmptyCartFragment();
                         } else {
-                            intent = new Intent(MainActivity.this, AuthActivity.class);
-                            startActivity(intent);
+                            fragment = new CartFragment();
+//                            intent = new Intent(MainActivity.this, AuthActivity.class);
+//                            startActivity(intent);
                         }
                         break;
                     case R.id.profile_page:

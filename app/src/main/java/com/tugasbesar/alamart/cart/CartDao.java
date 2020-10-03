@@ -7,12 +7,14 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import java.util.List;
-import com.tugasbesar.alamart.cart.Cart;
+import com.tugasbesar.alamart.item.Item;
 
 @Dao
 public interface CartDao{
+    @Query("SELECT * FROM cart WHERE id_barang = :uuid LIMIT 1")
+    Cart getCartByUUID(String uuid);
 
-    @Query("SELECT * FROM Cart")
+    @Query("SELECT * FROM cart")
     List<Cart> getAll();
 
     @Insert
