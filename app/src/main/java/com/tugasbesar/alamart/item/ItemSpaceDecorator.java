@@ -4,26 +4,36 @@ import android.graphics.Rect;
 import android.view.View;
 
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 public class ItemSpaceDecorator extends RecyclerView.ItemDecoration {
 
-    private int halfSpace;
+    private int space;
 
     public ItemSpaceDecorator(int space) {
-        this.halfSpace = space / 2;
+        this.space = space;
     }
+
 
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+        int position = parent.getChildAdapterPosition(view);
 
-        if (parent.getPaddingLeft() != halfSpace) {
-            parent.setPadding(halfSpace, halfSpace, halfSpace, halfSpace);
-            parent.setClipToPadding(false);
+        StaggeredGridLayoutManager.LayoutParams lp = (StaggeredGridLayoutManager.LayoutParams) view.getLayoutParams();
+        int spanIndex = lp.getSpanIndex();
+
+        if (position <= 1) {
+            outRect.top = space;
         }
 
-        outRect.top = halfSpace;
-        outRect.bottom = halfSpace;
-        outRect.left = halfSpace;
-        outRect.right = halfSpace;
+        if (spanIndex == 1) {
+            outRect.right = space;
+            outRect.left = space / 2;
+        } else {
+            outRect.left = space;
+            outRect.right = space / 2;
+        }
+
+        outRect.bottom = space;
     }
 }
