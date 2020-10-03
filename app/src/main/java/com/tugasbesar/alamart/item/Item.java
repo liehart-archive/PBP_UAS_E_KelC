@@ -1,11 +1,17 @@
 package com.tugasbesar.alamart.item;
 
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.databinding.BindingAdapter;
+import com.tugasbesar.alamart.R;
+
+import com.bumptech.glide.Glide;
+
 import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class Item {
 
@@ -19,10 +25,11 @@ public class Item {
     public int stock;
     public int discount;
     public int terjual;
+    public List<String> image;
 
     public Item() {}
 
-    public Item(int terjual, int size, double price, String name, String description, int discount, List<String> category, int stock, String uuid) {
+    public Item(int terjual, int size, double price, String name, String description, int discount, List<String> category, int stock, String uuid, List<String> image) {
         this.uuid = uuid;
         this.name = name;
         this.description = description;
@@ -33,6 +40,15 @@ public class Item {
         this.stock = stock;
         this.discount = discount;
         this.terjual = 0;
+        this.image = image;
+    }
+
+    public List<String> getImage() {
+        return image;
+    }
+
+    public void setImage(List<String> image) {
+        this.image = image;
     }
 
     public String getUuid() {
@@ -129,7 +145,7 @@ public class Item {
 
     @BindingAdapter("showPrice")
     public static void setPriceString(TextView view, double price) {
-        NumberFormat numberFormat = NumberFormat.getCurrencyInstance();
+        NumberFormat numberFormat = NumberFormat.getCurrencyInstance(Locale.forLanguageTag("in-ID"));
         numberFormat.setMaximumFractionDigits(0);
         view.setText(numberFormat.format(price));
     }
@@ -143,12 +159,23 @@ public class Item {
 
     @BindingAdapter({"discount", "price"})
     public static void setDiscountedPrice(TextView view, int discount, double price) {
-        NumberFormat numberFormat = NumberFormat.getCurrencyInstance();
+        NumberFormat numberFormat = NumberFormat.getCurrencyInstance(Locale.forLanguageTag("in-ID"));
         numberFormat.setMaximumFractionDigits(0);
         if (discount > 0) {
             view.setText(numberFormat.format(price - (price * discount / 100)));
         } else {
             view.setText(numberFormat.format(price));
+        }
+    }
+
+    @BindingAdapter("imageUrl")
+    public static void setImage(ImageView view, String imageURL) {
+        if(imageURL != null) {
+            Glide.with(view.getContext())
+                    .load(imageURL)
+                    .into(view);
+        } else {
+            view.setImageDrawable(view.getContext().getDrawable(R.drawable.ic_baseline_broken_image_24));
         }
     }
 }

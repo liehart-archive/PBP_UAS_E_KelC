@@ -13,9 +13,11 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.button.MaterialButton;
 import com.google.gson.Gson;
 import com.tugasbesar.alamart.R;
@@ -25,6 +27,7 @@ import com.tugasbesar.alamart.cart.CartDao;
 import com.tugasbesar.alamart.cart.CartDatabaseClient;
 
 import java.text.NumberFormat;
+import java.util.Locale;
 
 public class ItemDetail extends AppCompatActivity {
 
@@ -34,6 +37,7 @@ public class ItemDetail extends AppCompatActivity {
     private MaterialButton btnFav, btnShare, btnAdd;
     private boolean btnFavState;
     private String priceString;
+    private ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +50,7 @@ public class ItemDetail extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        numberFormat = NumberFormat.getCurrencyInstance();
+        numberFormat = NumberFormat.getCurrencyInstance(Locale.forLanguageTag("in-ID"));
         numberFormat.setMaximumFractionDigits(0);
 
         btnFav = findViewById(R.id.btn_item_favourite);
@@ -58,6 +62,7 @@ public class ItemDetail extends AppCompatActivity {
         itemDiscount = findViewById(R.id.itemDiscount);
         itemDiscountPrice = findViewById(R.id.itemDiscountPrice);
         itemDescription = findViewById(R.id.itemDescription);
+        imageView = findViewById(R.id.imageContent);
 
         String strItem = getIntent().getStringExtra("objItem");
         Gson gson = new Gson();
@@ -71,6 +76,14 @@ public class ItemDetail extends AppCompatActivity {
             price -= ((price * item.discount) / 100);
             itemDiscount.setText(Integer.toString(item.discount) + " %");
             itemDiscountPrice.setText(numberFormat.format(item.price));
+        }
+
+        if(item.image.get(0) != null) {
+            Glide.with(imageView.getContext())
+                    .load(item.image.get(0))
+                    .into(imageView);
+        } else {
+            imageView.setImageDrawable(imageView.getContext().getDrawable(R.drawable.ic_baseline_broken_image_24));
         }
 
         priceString = numberFormat.format(price);

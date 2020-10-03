@@ -32,6 +32,7 @@
                 app:srcCompat="@drawable/pocky_2"
                 android:scaleType="centerCrop"
                 android:contentDescription="Images"
+                app:imageUrl="@{item.image.get(0)}"
                 />
 
            <LinearLayout

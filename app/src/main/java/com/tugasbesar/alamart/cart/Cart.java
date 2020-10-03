@@ -1,5 +1,8 @@
 package com.tugasbesar.alamart.cart;
 
+import android.widget.TextView;
+
+import androidx.databinding.BindingAdapter;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -7,6 +10,8 @@ import androidx.room.PrimaryKey;
 import com.tugasbesar.alamart.item.Item;
 
 import java.io.Serializable;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 @Entity
 public class Cart implements Serializable {
@@ -52,5 +57,12 @@ public class Cart implements Serializable {
 
     public void setTotalHarga(double totalHarga) {
         TotalHarga = totalHarga;
+    }
+
+    @BindingAdapter("showPrice")
+    public static void setPriceString(TextView view, double price) {
+        NumberFormat numberFormat = NumberFormat.getCurrencyInstance(Locale.forLanguageTag("in-ID"));
+        numberFormat.setMaximumFractionDigits(0);
+        view.setText(numberFormat.format(price));
     }
 }
