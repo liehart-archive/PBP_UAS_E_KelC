@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
     BottomNavigationView navigationView;
     Intent intent;
     SharedPreferences sharedPreferences;
-
     boolean doubleTapToExit = false;
 
     @Override

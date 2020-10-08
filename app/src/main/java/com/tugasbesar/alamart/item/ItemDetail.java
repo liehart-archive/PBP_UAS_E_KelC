@@ -145,7 +145,9 @@ public class ItemDetail extends AppCompatActivity {
 
                 if (daoCart == null) {
                     Cart cart = new Cart();
+                    cart.setNama_barang(item.name);
                     cart.setId_barang(item.uuid);
+                    cart.setImage_url(item.image.get(0));
                     cart.setJumlahBarang(1);
                     cart.setTotalHarga(item.price * 1);
                     client.insert(cart);

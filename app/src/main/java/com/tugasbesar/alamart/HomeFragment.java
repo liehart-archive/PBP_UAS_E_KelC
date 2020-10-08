@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
@@ -34,6 +35,7 @@ public class HomeFragment extends Fragment {
     private SwipeRefreshLayout refreshLayout;
     private RecyclerView recyclerView;
     private CollectionReference firestore;
+    private ShimmerFrameLayout shimmerFrameLayout;
 
     private List<Item> items = new ArrayList<Item>();
 
@@ -52,6 +54,7 @@ public class HomeFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.recycler_view_item);
         refreshLayout = view.findViewById(R.id.swipe_refresh);
+        shimmerFrameLayout = view.findViewById(R.id.shimmer_item_container);
 
         firestore = FirebaseFirestore.getInstance().collection("items");
 
@@ -74,6 +77,9 @@ public class HomeFragment extends Fragment {
     }
 
     private void getItem() {
+        shimmerFrameLayout.startShimmer();
+        shimmerFrameLayout.setVisibility(View.VISIBLE);
+        recyclerView.setVisibility(View.GONE);
         firestore.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -83,6 +89,9 @@ public class HomeFragment extends Fragment {
                         items.add(qdc.toObject(Item.class));
                     }
                     adapter.notifyDataSetChanged();
+                    shimmerFrameLayout.stopShimmer();
+                    shimmerFrameLayout.setVisibility(View.GONE);
+                    recyclerView.setVisibility(View.VISIBLE);
                 }
             }
         });

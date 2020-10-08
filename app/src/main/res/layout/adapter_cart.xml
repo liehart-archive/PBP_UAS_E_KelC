@@ -7,6 +7,9 @@
         <variable
             name="cart"
             type="com.tugasbesar.alamart.cart.Cart" />
+        <variable
+            name="cartClick"
+            type="com.tugasbesar.alamart.cart.CartClickListener" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -32,8 +35,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/pocky_2" />
-
+                app:imageUrl="@{cart.image_url}"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -45,7 +47,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="3dp"
-                    android:text="@{cart.id_barang}" />
+                    android:text="@{cart.nama_barang}" />
                 <TextView
                     android:id="@+id/tvCartPrice"
                     android:layout_width="match_parent"
@@ -56,7 +58,6 @@
                     android:textSize="16sp"
                     app:showPrice="@{cart.totalHarga}"/>
                 <LinearLayout
-                    android:layout_marginTop="4dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -75,6 +76,7 @@
                         android:insetTop="0dp"
                         android:insetRight="0dp"
                         android:insetBottom="0dp"
+                        android:onClick="@{()-> cartClick.addQty(cart)}"
                         style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
 
                     <TextView
@@ -102,6 +104,7 @@
                         android:insetTop="0dp"
                         android:insetRight="0dp"
                         android:insetBottom="0dp"
+                        android:onClick="@{()-> cartClick.minQty(cart)}"
                         style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
 
                     <com.google.android.material.button.MaterialButton
@@ -119,6 +122,7 @@
                         android:insetRight="0dp"
                         android:insetBottom="0dp"
                         android:layout_marginLeft="10dp"
+                        android:onClick="@{()-> cartClick.delCart(cart)}"
                         style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
                 </LinearLayout>
 
