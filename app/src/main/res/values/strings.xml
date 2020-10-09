@@ -32,4 +32,11 @@
     <string name="setting_bahasa">Bahasa</string>
     <string name="setting_exit">Keluar</string>
     <string name="search_box_hint">Cari apa yang kamu mau</string>
+
+    <!--Profile-->
+    <string name="email">Email</string>
+    <string name="birthday">Birthday</string>
+    <string name="phone">Phone</string>
+    <string name="address">Address</string>
+
 </resources>

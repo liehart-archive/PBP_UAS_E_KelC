@@ -78,7 +78,7 @@ public class ItemDetail extends AppCompatActivity {
             itemDiscountPrice.setText(numberFormat.format(item.price));
         }
 
-        if(item.image.get(0) != null) {
+        if (item.image != null) {
             Glide.with(imageView.getContext())
                     .load(item.image.get(0))
                     .into(imageView);
@@ -147,7 +147,9 @@ public class ItemDetail extends AppCompatActivity {
                     Cart cart = new Cart();
                     cart.setNama_barang(item.name);
                     cart.setId_barang(item.uuid);
-                    cart.setImage_url(item.image.get(0));
+                    if (item.image != null) {
+                        cart.setImage_url(item.image.get(0));
+                    }
                     cart.setJumlahBarang(1);
                     cart.setTotalHarga(item.price * 1);
                     client.insert(cart);

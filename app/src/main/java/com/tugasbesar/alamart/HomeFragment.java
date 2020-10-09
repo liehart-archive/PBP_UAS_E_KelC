@@ -2,7 +2,6 @@ package com.tugasbesar.alamart;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,12 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
+import com.tugasbesar.alamart.api.ApiClient;
+import com.tugasbesar.alamart.api.ApiInterface;
+import com.tugasbesar.alamart.api.GetItems;
 import com.tugasbesar.alamart.databinding.FragmentHomeBinding;
 import com.tugasbesar.alamart.item.Item;
 import com.tugasbesar.alamart.item.ItemAdapter;
@@ -26,7 +22,10 @@ import com.tugasbesar.alamart.item.ItemSpaceDecorator;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class HomeFragment extends Fragment {
 
@@ -34,10 +33,10 @@ public class HomeFragment extends Fragment {
     private ItemAdapter adapter;
     private SwipeRefreshLayout refreshLayout;
     private RecyclerView recyclerView;
-    private CollectionReference firestore;
     private ShimmerFrameLayout shimmerFrameLayout;
+    private ApiInterface apiInterface;
 
-    private List<Item> items = new ArrayList<Item>();
+    private List<Item> items = new ArrayList<>();
 
     public HomeFragment() {}
 
@@ -52,47 +51,56 @@ public class HomeFragment extends Fragment {
         fragmentHomeBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
         View view = fragmentHomeBinding.getRoot();
 
+        apiInterface = ApiClient.getRetrofit().create(ApiInterface.class);
+
         recyclerView = view.findViewById(R.id.recycler_view_item);
         refreshLayout = view.findViewById(R.id.swipe_refresh);
         shimmerFrameLayout = view.findViewById(R.id.shimmer_item_container);
 
-        firestore = FirebaseFirestore.getInstance().collection("items");
-
-
         adapter = new ItemAdapter(getContext(), items);
         fragmentHomeBinding.setAdapter(adapter);
         recyclerView.addItemDecoration(new ItemSpaceDecorator(30));
+        recyclerView.setVisibility(View.VISIBLE);
 
-        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                getItem();
-                refreshLayout.setRefreshing(false);
-            }
+        refreshLayout.setOnRefreshListener(() -> {
+            getItemRetrofitFirst();
+            refreshLayout.setRefreshing(false);
         });
 
-        getItem();
+        getItemRetrofitFirst();
 
         return view;
     }
 
-    private void getItem() {
+    public void getItemRetrofitFirst() {
+        /*
+        Fungsi untuk mengkonsumsi API dengan GET request page pertama item list dari API
+         */
+
         shimmerFrameLayout.startShimmer();
         shimmerFrameLayout.setVisibility(View.VISIBLE);
+
         recyclerView.setVisibility(View.GONE);
-        firestore.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+
+        Call<GetItems> itemsCall = apiInterface.getItems(1);
+        itemsCall.enqueue(new Callback<GetItems>() {
             @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    items.clear();
-                    for (QueryDocumentSnapshot qdc : Objects.requireNonNull(task.getResult())) {
-                        items.add(qdc.toObject(Item.class));
-                    }
-                    adapter.notifyDataSetChanged();
-                    shimmerFrameLayout.stopShimmer();
-                    shimmerFrameLayout.setVisibility(View.GONE);
-                    recyclerView.setVisibility(View.VISIBLE);
+            public void onResponse(Call<GetItems> call, Response<GetItems> response) {
+                items.clear();
+                for (Item item : response.body().getItemList() ) {
+                    items.add(item);
                 }
+                adapter.notifyDataSetChanged();
+
+                shimmerFrameLayout.stopShimmer();
+                shimmerFrameLayout.setVisibility(View.GONE);
+
+                recyclerView.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onFailure(Call<GetItems> call, Throwable t) {
+                return;
             }
         });
     }
