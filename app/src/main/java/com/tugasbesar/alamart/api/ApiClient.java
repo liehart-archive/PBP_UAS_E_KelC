@@ -5,7 +5,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
 
-    public static final String BASE_URL = "https://12a12d7886c1.ngrok.io/api/";
+    public static final String BASE_URL = "https://69228c1c9b5a.ngrok.io/api/";
     public static Retrofit retrofit = null;
     public static Retrofit getRetrofit() {
         if (retrofit == null) {

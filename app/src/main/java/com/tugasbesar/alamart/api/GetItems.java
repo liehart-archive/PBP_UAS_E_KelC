@@ -19,6 +19,13 @@ public class GetItems {
     @SerializedName("results")
     List<Item> itemList;
 
+    public boolean isLast() {
+        if (next == null) {
+            return true;
+        }
+        return false;
+    }
+
     public List<Item> getItemList() {
         return itemList;
     }

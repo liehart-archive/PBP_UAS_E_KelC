@@ -2,14 +2,18 @@ package com.tugasbesar.alamart;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.tugasbesar.alamart.api.ApiClient;
@@ -29,12 +33,15 @@ import retrofit2.Response;
 
 public class HomeFragment extends Fragment {
 
+    private static final String TAG = "MainActivity";
     private FragmentHomeBinding fragmentHomeBinding;
     private ItemAdapter adapter;
     private SwipeRefreshLayout refreshLayout;
     private RecyclerView recyclerView;
     private ShimmerFrameLayout shimmerFrameLayout;
     private ApiInterface apiInterface;
+    private boolean executing = false;
+    private int page = 1;
 
     private List<Item> items = new ArrayList<>();
 
@@ -63,16 +70,43 @@ public class HomeFragment extends Fragment {
         recyclerView.setVisibility(View.VISIBLE);
 
         refreshLayout.setOnRefreshListener(() -> {
-            getItemRetrofitFirst();
+            items.clear();
+            page = 1;
+            executing = true;
+            getItem(page);
             refreshLayout.setRefreshing(false);
         });
 
-        getItemRetrofitFirst();
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                StaggeredGridLayoutManager manager = (StaggeredGridLayoutManager) recyclerView.getLayoutManager();
+                if (manager != null) {
+                    int[] lastVisibleItems = new int[2];
+                    manager.findLastCompletelyVisibleItemPositions(lastVisibleItems);
+                    int lastVisibleItem = Math.max(lastVisibleItems[0], lastVisibleItems[1]);
+                    if (!executing && lastVisibleItem == items.size() - 1) {
+                        System.out.println("Need to load more data");
+                        executing = true;
+                        page = page + 1;
+                        getItem(page);
+                    }
+                }
+            }
+        });
+
+        getItem(page);
 
         return view;
     }
 
-    public void getItemRetrofitFirst() {
+    public void getItem(int page) {
         /*
         Fungsi untuk mengkonsumsi API dengan GET request page pertama item list dari API
          */
@@ -82,16 +116,27 @@ public class HomeFragment extends Fragment {
 
         recyclerView.setVisibility(View.GONE);
 
-        Call<GetItems> itemsCall = apiInterface.getItems(1);
+        Call<GetItems> itemsCall = apiInterface.getItems(page);
         itemsCall.enqueue(new Callback<GetItems>() {
             @Override
             public void onResponse(Call<GetItems> call, Response<GetItems> response) {
-                items.clear();
-                for (Item item : response.body().getItemList() ) {
-                    items.add(item);
+                if (response.isSuccessful()) {
+                    if (response.body() != null) {
+                        System.out.println("Menkonsumsi API halaman " + page);
+                        List<Item> res = response.body().getItemList();
+                        if (res.size() > 0) {
+                            items.addAll(res);
+                        } else {
+                            Toast.makeText(getContext(), "No more data available", Toast.LENGTH_SHORT).show();
+                        }
+                        adapter.notifyDataSetChanged();
+                    }
+                } else {
+                    Log.e(TAG,"Load more error with: "+ response.code());
                 }
-                adapter.notifyDataSetChanged();
-
+                if (!response.body().isLast() && executing) {
+                    executing = false;
+                }
                 shimmerFrameLayout.stopShimmer();
                 shimmerFrameLayout.setVisibility(View.GONE);
 
@@ -100,7 +145,7 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onFailure(Call<GetItems> call, Throwable t) {
-                return;
+                Log.e(TAG, "Error: " + t.getMessage());
             }
         });
     }
