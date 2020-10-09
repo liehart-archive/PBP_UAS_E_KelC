@@ -8,7 +8,7 @@ public class ProfileDao {
     private String profileImageUrl, nameUser, emailUser, phoneUser, placeUser, token;
     private Date birthdayUser;
 
-    public ProfileDAO(String profileImageUrl, String nameUser, String emailUser, String phoneUser, String placeUser, String token, Date birthdayUser){
+    public ProfileDao(String profileImageUrl, String nameUser, String emailUser, String phoneUser, String placeUser, String token, Date birthdayUser){
         this.profileImageUrl = profileImageUrl;
         this.nameUser = nameUser;
         this.emailUser = emailUser;

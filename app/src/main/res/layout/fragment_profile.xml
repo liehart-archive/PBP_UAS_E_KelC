@@ -12,7 +12,7 @@
         android:id="@+id/rellay1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#fffff"
+        android:background="#ffffff"
         android:paddingBottom="20dp">
 
         <com.google.android.material.appbar.AppBarLayout
@@ -60,7 +60,6 @@
                 android:src="@drawable/ic_user" />
         </RelativeLayout>
 
-<<<<<<< HEAD
         <TextView
             android:id="@+id/nameUser"
             android:layout_width="wrap_content"
@@ -247,25 +246,4 @@
         app:menu="@menu/bottom_navigation_menu" />
 
 </FrameLayout>
-=======
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="56dp">
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="16dp"
-                android:text="Akun Saya"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
-
-        </LinearLayout>
-
->>>>>>> retrofit on the way
-
-
 
