@@ -12,8 +12,10 @@
         android:roundIcon="@mipmap/splash_logo_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Launcher">
-        <activity android:name=".search.SearchActivity"
-            android:windowSoftInputMode="stateVisible"></activity>
+        <activity android:name=".ExploreActivity"></activity>
+        <activity
+            android:name=".search.SearchActivity"
+            android:windowSoftInputMode="stateVisible" />
         <activity android:name=".item.ItemDetail" />
         <activity
             android:name=".profile.UserSettingActivity"

@@ -31,105 +31,74 @@
                 app:titleTextColor="@color/colorPrimary" />
 
         </com.google.android.material.appbar.AppBarLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="56dp">
 
-        </LinearLayout>
-        <RelativeLayout
-            android:id="@+id/borderImageProfile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/circle_border">
+    </RelativeLayout>
 
-            <ImageView
-                android:id="@+id/profileImageUrl"
-                android:layout_width="136dp"
-                android:layout_height="129dp"
-                android:layout_marginStart="9dp"
-                android:layout_marginTop="9dp"
-                android:layout_marginEnd="9dp"
-                android:layout_marginBottom="9dp"
-                android:adjustViewBounds="true"
-                android:background="@drawable/circle"
-                android:padding="30dp"
-                android:scaleType="centerInside"
-                android:src="@drawable/ic_user" />
-        </RelativeLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="76dp"
+        android:orientation="vertical">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/no_avatar"
+            app:civ_border_color="#BBDEFB"
+            app:civ_border_width="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/nameUser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/borderImageProfile"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="15sp"
+            android:layout_marginTop="16dp"
             android:fontFamily="sans-serif-light"
             android:text="Yehezkiel Yoel Darmodjo"
             android:textColor="@color/colorPrimary"
-            android:textSize="25sp" />
-
-
-        <ImageView
-            android:id="@+id/cameraIV"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="130dp"
-            android:layout_marginTop="110dp"
-            android:adjustViewBounds="true"
-            android:scaleType="centerInside"
-            app:srcCompat="@drawable/ic_camera" />
-
-    </RelativeLayout>
-
-
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/linlay">
+            android:textSize="25sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profile_image" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginTop="20dp"
-            android:orientation="vertical">
+            android:layout_marginHorizontal="32dp"
+            android:layout_marginTop="16dp"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/nameUser"
+            tools:layout_editor_absoluteX="32dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="150dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
                     android:text="@string/email"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="13sp" />
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/emailUser"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/ic_mail"
+                    android:drawablePadding="10dp"
+                    android:drawableTint="@color/colorPrimary"
                     android:fontFamily="sans-serif-light"
                     android:text="yehezkielyoel111@gmail.com"
                     android:textColor="#000000"
                     android:textSize="18sp" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="15dp"
-                    android:background="@color/grey" />
 
             </LinearLayout>
 
@@ -142,25 +111,22 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
                     android:text="@string/phone"
-                    android:textSize="13sp"
-                    android:textColor="@color/colorPrimary"/>
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/phoneUser"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/ic_phone"
+                    android:drawablePadding="10dp"
+                    android:drawableTint="@color/colorPrimary"
                     android:fontFamily="sans-serif-light"
                     android:text="08123456789"
                     android:textColor="#000000"
                     android:textSize="18sp" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="15dp"
-                    android:background="@color/grey" />
 
             </LinearLayout>
 
@@ -173,29 +139,24 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
                     android:text="@string/address"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="13sp" />
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/placeUser"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/ic_place"
+                    android:drawablePadding="10dp"
+                    android:drawableTint="@color/colorPrimary"
                     android:fontFamily="sans-serif-light"
                     android:text="Ungaran"
                     android:textColor="#000000"
                     android:textSize="18sp" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="15dp"
-                    android:background="@color/grey" />
-
             </LinearLayout>
-
-
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -207,43 +168,27 @@
                     android:id="@+id/birthdayUser"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
                     android:text="@string/birthday"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="13sp" />
+                    android:textSize="12sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/ic_cake"
+                    android:drawablePadding="10dp"
+                    android:drawableTint="@color/colorPrimary"
                     android:fontFamily="sans-serif-light"
-                    android:text="17-07-2000"
+                    android:text="17 Jul 2000"
                     android:textColor="#000000"
                     android:textSize="18sp" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="15dp"
-                    android:background="@color/grey" />
-
-
 
             </LinearLayout>
 
 
         </LinearLayout>
 
-    </RelativeLayout>
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
-        app:itemIconTint="@color/primaryWhite"
-        app:itemTextColor="@drawable/selector"
-        android:background="@color/black"
-        android:layout_width="match_parent"
-        android:layout_gravity="center|bottom"
-        android:layout_height="wrap_content"
-        app:menu="@menu/bottom_navigation_menu" />
-
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
 
