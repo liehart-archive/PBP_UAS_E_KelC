@@ -9,8 +9,8 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
-import com.tugasbesar.alamart.BR;
 import com.tugasbesar.alamart.R;
+import com.tugasbesar.alamart.BR;
 import com.tugasbesar.alamart.databinding.AdapterItemBinding;
 
 import java.util.List;

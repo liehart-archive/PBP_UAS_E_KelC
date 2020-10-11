@@ -60,12 +60,15 @@ public class ExploreActivity extends AppCompatActivity {
         recyclerView.addItemDecoration(new ItemSpaceDecorator(30));
         recyclerView.setVisibility(View.VISIBLE);
 
-        refreshLayout.setOnRefreshListener(() -> {
-            items.clear();
-            page = 1;
-            executing = true;
-            getItem(page);
-            refreshLayout.setRefreshing(false);
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                items.clear();
+                page = 1;
+                executing = true;
+                getItem(page);
+                refreshLayout.setRefreshing(false);
+            }
         });
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -96,7 +99,7 @@ public class ExploreActivity extends AppCompatActivity {
 
     }
 
-    public void getItem(int page) {
+    public void getItem(final int page) {
         /*
         Fungsi untuk mengkonsumsi API dengan GET request page pertama item list dari API
          */
