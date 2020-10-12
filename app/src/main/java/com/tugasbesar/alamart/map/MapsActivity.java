@@ -87,28 +87,27 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         super.onCreate(savedInstanceState);
 
         Mapbox.getInstance(this, getString(R.string.mapbox_access_token));
-
         setContentView(R.layout.activity_map);
 
         mapView = findViewById(R.id.mapView);
-        searchfab = findViewById(R.id.fab_location_search);
+//        searchfab = findViewById(R.id.fab_location_search);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
         btnStart = findViewById(R.id.btnStart);
 
-        searchfab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new PlaceAutocomplete.IntentBuilder()
-                        .accessToken(Mapbox.getAccessToken() != null ? Mapbox.getAccessToken() : getString(R.string.mapbox_access_token))
-                        .placeOptions(PlaceOptions.builder()
-                                .backgroundColor(Color.parseColor("#EEEEEE"))
-                                .limit(10)
-                                .build(PlaceOptions.MODE_CARDS))
-                        .build(MapsActivity.this);
-                startActivityForResult(intent, REQUEST_CODE_AUTOCOMPLETE);
-            }
-        });
+//        searchfab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new PlaceAutocomplete.IntentBuilder()
+//                        .accessToken(Mapbox.getAccessToken() != null ? Mapbox.getAccessToken() : getString(R.string.mapbox_access_token))
+//                        .placeOptions(PlaceOptions.builder()
+//                                .backgroundColor(Color.parseColor("#EEEEEE"))
+//                                .limit(10)
+//                                .build(PlaceOptions.MODE_CARDS))
+//                        .build(MapsActivity.this);
+//                startActivityForResult(intent, REQUEST_CODE_AUTOCOMPLETE);
+//            }
+//        });
 
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -222,27 +221,32 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                         initLayers(style);
 
-                        mapboxMap.addOnMapClickListener(new MapboxMap.OnMapClickListener() {
-                            @Override
-                            public boolean onMapClick(@NonNull LatLng point) {
-                                if (destinationMarker != null) {
-                                    mapboxMap.removeMarker(destinationMarker);
-                                }
-                                destinationMarker = mapboxMap.addMarker(new MarkerOptions().position(point));
-                                destinationPosition = Point.fromLngLat(point.getLongitude(), point.getLatitude());
+//                        mapboxMap.addOnMapClickListener(new MapboxMap.OnMapClickListener() {
+//                            @Override
+//                            public boolean onMapClick(@NonNull LatLng point) {
+//                                if (destinationMarker != null) {
+//                                    mapboxMap.removeMarker(destinationMarker);
+//                                }
+//                                destinationMarker = mapboxMap.addMarker(new MarkerOptions().position(point));
+                        destinationPosition = Point.fromLngLat(110.415497, -7.776472);
+//
+                        getRoute(origin, destinationPosition);
 
-                                getRoute(origin, destinationPosition);
-
-                                btnStart.setEnabled(true);
-                                btnStart.setBackgroundResource(R.color.mapbox_blue);
-                                return true;
-                            }
-
-                        });
+                        btnStart.setEnabled(true);
+                        btnStart.setBackgroundResource(R.color.mapbox_blue);
+//                                return true;
+//                            }
+//
+//                        });
                         MarkerOptions options = new MarkerOptions();
                         options.title("Alamart");
                         options.position(new LatLng(-7.776472, 110.415497));
                         mapboxMap.addMarker(options);
+                        mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition(
+                                new CameraPosition.Builder()
+                                        .target(new LatLng(-7.776472, 110.415497))
+                                        .zoom(14)
+                                        .build()), 4000);
                     }
                 });
 
