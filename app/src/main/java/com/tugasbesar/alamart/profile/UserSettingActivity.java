@@ -18,6 +18,7 @@ import androidx.preference.PreferenceScreen;
 import com.google.firebase.auth.FirebaseAuth;
 import com.tugasbesar.alamart.MainActivity;
 import com.tugasbesar.alamart.R;
+import com.tugasbesar.alamart.auth.AuthActivity;
 
 public class UserSettingActivity extends AppCompatActivity {
 
@@ -91,6 +92,9 @@ public class UserSettingActivity extends AppCompatActivity {
                     Toast.makeText(getContext(), "Bahasa telah diganti", Toast.LENGTH_SHORT).show();
                     ListPreference listPreference = getPreferenceManager().findPreference("languageKey");
                     listPreference.setSummary(sharedPreferences.getString("value", ""));
+                    Intent intent = new Intent(getContext(), MainActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
                     return true;
                 }
             });
@@ -104,8 +108,9 @@ public class UserSettingActivity extends AppCompatActivity {
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
                         FirebaseAuth.getInstance().signOut();
-                        Intent intent = new Intent(getActivity(), MainActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        Intent intent = new Intent(getActivity(), AuthActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                         Toast.makeText(getContext(), "Anda telah keluar", Toast.LENGTH_SHORT).show();
                         return true;

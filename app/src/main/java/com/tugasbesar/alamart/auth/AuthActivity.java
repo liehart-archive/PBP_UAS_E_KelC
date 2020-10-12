@@ -11,7 +11,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -24,6 +26,7 @@ public class AuthActivity extends AppCompatActivity {
 
     FirebaseAuth firebaseAuth;
     FirebaseUser user;
+    boolean doubleTapToExit = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,5 +95,23 @@ public class AuthActivity extends AppCompatActivity {
 
         NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         manager.notify(0, builder.build());
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (doubleTapToExit) {
+            finishAffinity();
+        }
+
+        this.doubleTapToExit = true;
+        Toast.makeText(this, "Tekan sekali lagi untuk keluar", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleTapToExit=false;
+            }
+        }, 2000);
     }
 }

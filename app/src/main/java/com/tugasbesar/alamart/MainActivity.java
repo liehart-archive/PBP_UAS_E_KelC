@@ -14,6 +14,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -22,6 +23,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.tugasbesar.alamart.auth.AuthActivity;
 import com.tugasbesar.alamart.map.MapsActivity;
 import com.tugasbesar.alamart.profile.ProfileFragment;
@@ -67,6 +69,14 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
+        firebaseAuth = FirebaseAuth.getInstance();
+        user = firebaseAuth.getCurrentUser();
+
+        if (user == null) {
+            intent = new Intent(this, AuthActivity.class);
+            startActivity(intent);
+        }
+
         sharedPreferences = getSharedPreferences("locale", MODE_PRIVATE);
         String locale = sharedPreferences.getString("value", null);
         if(locale == null) {
@@ -74,18 +84,17 @@ public class MainActivity extends AppCompatActivity {
             editor.putString("value", getResources().getConfiguration().getLocales().get(0).toString());
             editor.commit();
         }
-//
-//        if (locale.equals("en_US")) {
-//            setApplicationLocale("en");
-//        } else {
-//            setApplicationLocale("id");
-//        }
-//
+
+        if (locale.equals("en_US")) {
+            setApplicationLocale("en");
+        } else {
+            setApplicationLocale("id");
+        }
+
 
         setContentView(R.layout.activity_main);
 
-        firebaseAuth = FirebaseAuth.getInstance();
-        user = firebaseAuth.getCurrentUser();
+
         loadFragment(new HomeFragment());
         navigationView = findViewById(R.id.bottom_navigation);
         navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -105,13 +114,7 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent);
                         break;
                     case R.id.cart_page:
-                        if (user != null) {
-                            fragment = new EmptyCartFragment();
-                        } else {
-                            fragment = new CartFragment();
-//                            intent = new Intent(MainActivity.this, AuthActivity.class);
-//                            startActivity(intent);
-                        }
+                        fragment = new CartFragment();
                         break;
                     case R.id.profile_page:
                         fragment = new ProfileFragment();
