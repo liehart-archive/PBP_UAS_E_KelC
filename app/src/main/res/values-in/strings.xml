@@ -7,6 +7,7 @@
     <string name="cart_empty_back_button">Jelajahi Alamart</string>
     <string name="menu_beranda">Beranda</string>
     <string name="menu_telusuri">Telusuri</string>
+    <string name="menu_toko">Toko</string>
     <string name="menu_keranjang">Keranjang</string>
     <string name="menu_akun">Akun</string>
     <string name="setting_bahasa">Bahasa</string>

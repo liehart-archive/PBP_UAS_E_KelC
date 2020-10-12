@@ -23,6 +23,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.tugasbesar.alamart.auth.AuthActivity;
+import com.tugasbesar.alamart.map.MapsActivity;
 import com.tugasbesar.alamart.profile.ProfileFragment;
 import com.tugasbesar.alamart.search.SearchActivity;
 
@@ -97,6 +98,10 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.search_page:
                         intent = new Intent(MainActivity.this, SearchActivity.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.map_page:
+                        intent = new Intent(MainActivity.this, MapsActivity.class);
                         startActivity(intent);
                         break;
                     case R.id.cart_page:

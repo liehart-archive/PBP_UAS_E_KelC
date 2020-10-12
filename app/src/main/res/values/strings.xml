@@ -27,6 +27,7 @@
     <string name="cart_empty_back_button">Jelajahi Alamart</string>
     <string name="menu_beranda">Beranda</string>
     <string name="menu_telusuri">Telusuri</string>
+    <string name="menu_toko">Toko</string>
     <string name="menu_keranjang">Keranjang</string>
     <string name="menu_akun">Akun</string>
     <string name="setting_bahasa">Bahasa</string>
@@ -39,4 +40,10 @@
     <string name="phone">Phone</string>
     <string name="address">Address</string>
 
+    <!-- Map -->
+    <string name="mapbox_access_token">pk.eyJ1IjoiZXZhbnJpc2t5IiwiYSI6ImNrZnA1c25zMjBndzYycW41ODFseGF6cTcifQ.Pe1RWiNOTZgqPWKsCEbqdA</string>
+    <string name="start_navigation">Start navigation</string>
+    <string name="street">Street</string>
+    <string name="satellite">Satellite</string>
+    <string name="traffic_day">Traffic Day</string>
 </resources>
