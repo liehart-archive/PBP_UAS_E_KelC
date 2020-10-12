@@ -46,4 +46,5 @@
     <string name="street">Street</string>
     <string name="satellite">Satellite</string>
     <string name="traffic_day">Traffic Day</string>
+    <string name="exit_toast">Tekan sekali lagi untuk keluar</string>
 </resources>

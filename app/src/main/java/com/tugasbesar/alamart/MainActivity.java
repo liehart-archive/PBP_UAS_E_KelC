@@ -10,12 +10,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -25,6 +27,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.tugasbesar.alamart.auth.AuthActivity;
+import com.tugasbesar.alamart.cart.Cart;
+import com.tugasbesar.alamart.cart.CartDao;
+import com.tugasbesar.alamart.cart.CartDatabaseClient;
+import com.tugasbesar.alamart.item.Item;
 import com.tugasbesar.alamart.map.MapsActivity;
 import com.tugasbesar.alamart.profile.ProfileFragment;
 import com.tugasbesar.alamart.search.SearchActivity;
@@ -79,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
         sharedPreferences = getSharedPreferences("locale", MODE_PRIVATE);
         String locale = sharedPreferences.getString("value", null);
-        if(locale == null) {
+        if (locale == null) {
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("value", getResources().getConfiguration().getLocales().get(0).toString());
             editor.commit();
@@ -101,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Fragment fragment = null;
-                switch (item.getItemId()){
+                switch (item.getItemId()) {
                     case R.id.home_page:
                         fragment = new HomeFragment();
                         break;
@@ -145,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void run() {
-                doubleTapToExit=false;
+                doubleTapToExit = false;
             }
         }, 2000);
     }
@@ -171,5 +177,4 @@ public class MainActivity extends AppCompatActivity {
         }
         resources.updateConfiguration(config, dm);
     }
-
 }

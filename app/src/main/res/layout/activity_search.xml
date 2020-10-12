@@ -37,7 +37,7 @@
             android:hint="@string/search_box_hint"
             android:inputType="text"
             android:textColor="#dddddd"
-            android:textCursorDrawable="@null"/>
+            android:textCursorDrawable="@null" />
     </LinearLayout>
 
 
@@ -54,6 +54,7 @@
             android:id="@+id/shimmer_view_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/container"
                 android:layout_marginHorizontal="16dp"

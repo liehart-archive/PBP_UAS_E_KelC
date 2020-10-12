@@ -32,7 +32,8 @@ public class CartFragment extends Fragment {
     private CartAdapter adapter;
     private MaterialButton btnDelete;
 
-    public CartFragment() {}
+    public CartFragment() {
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

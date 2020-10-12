@@ -11,7 +11,8 @@ import android.view.ViewGroup;
 public class EmptyCartFragment extends Fragment {
 
 
-    public EmptyCartFragment() {}
+    public EmptyCartFragment() {
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

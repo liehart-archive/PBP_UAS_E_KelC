@@ -8,5 +8,7 @@ public class ItemList {
 
     public ItemList(ArrayList<Item> items) {
         this.items = items;
-    };
+    }
+
+    ;
 }

@@ -179,7 +179,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             locationComponent.setRenderMode(RenderMode.COMPASS);
             this.origin = Point.fromLngLat(locationComponent.getLastKnownLocation().getLongitude(),
                     locationComponent.getLastKnownLocation().getLatitude());
-        }else {
+        } else {
             permissionsManager = new PermissionsManager(this);
             permissionsManager.requestLocationPermissions(this);
         }
@@ -200,9 +200,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         if (granted) {
             mapboxMap.getStyle(new Style.OnStyleLoaded() {
                 @Override
-                public void onStyleLoaded(@NonNull Style style) { enableLocationComponent(style); }
+                public void onStyleLoaded(@NonNull Style style) {
+                    enableLocationComponent(style);
+                }
             });
-        }else {
+        } else {
             Toast.makeText(this, "Permission not granted", Toast.LENGTH_LONG).show();
             finish();
         }
@@ -274,7 +276,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                         if (navigationMapRoute != null) {
                             navigationMapRoute.removeRoute();
-                        }else {
+                        } else {
                             navigationMapRoute = new NavigationMapRoute(null, mapView, mapboxMap);
                         }
 
@@ -300,7 +302,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     GeoJsonSource source = style.getSourceAs("geojsonSourceLayerId");
                     if (source != null) {
                         source.setGeoJson(FeatureCollection.fromFeatures(
-                                new Feature[] {Feature.fromJson(selectedCarmenFeature.toJson())}));
+                                new Feature[]{Feature.fromJson(selectedCarmenFeature.toJson())}));
                     }
 
                     mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition(

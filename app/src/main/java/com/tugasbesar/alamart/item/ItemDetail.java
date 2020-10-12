@@ -70,7 +70,7 @@ public class ItemDetail extends AppCompatActivity {
 
         double price = item.price;
 
-        if(item.discount > 0) {
+        if (item.discount > 0) {
             itemDiscount.setVisibility(View.VISIBLE);
             itemDiscountPrice.setVisibility(View.VISIBLE);
             price -= ((price * item.discount) / 100);
@@ -178,7 +178,7 @@ public class ItemDetail extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
                 return true;

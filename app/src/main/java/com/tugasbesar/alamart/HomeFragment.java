@@ -39,7 +39,8 @@ public class HomeFragment extends Fragment {
 
     private List<Item> items = new ArrayList<Item>();
 
-    public HomeFragment() {}
+    public HomeFragment() {
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

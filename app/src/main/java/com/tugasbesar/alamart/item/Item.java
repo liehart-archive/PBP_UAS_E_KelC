@@ -4,7 +4,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import androidx.databinding.BindingAdapter;
+
 import com.tugasbesar.alamart.R;
 
 import com.bumptech.glide.Glide;
@@ -27,7 +29,8 @@ public class Item {
     public int terjual;
     public List<String> image;
 
-    public Item() {}
+    public Item() {
+    }
 
     public Item(int terjual, int size, double price, String name, String description, int discount, List<String> category, int stock, String uuid, List<String> image) {
         this.uuid = uuid;
@@ -170,7 +173,7 @@ public class Item {
 
     @BindingAdapter("imageUrl")
     public static void setImage(ImageView view, String imageURL) {
-        if(imageURL != null) {
+        if (imageURL != null) {
             Glide.with(view.getContext())
                     .load(imageURL)
                     .into(view);

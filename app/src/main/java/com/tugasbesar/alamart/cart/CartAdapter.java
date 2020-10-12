@@ -21,7 +21,7 @@ import com.tugasbesar.alamart.databinding.AdapterCartBinding;
 
 import java.util.List;
 
-public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> implements CartClickListener{
+public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> implements CartClickListener {
 
     private Context context;
     private List<Cart> result;
@@ -125,7 +125,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         delete.execute();
     }
 
-    public class CartViewHolder extends RecyclerView.ViewHolder{
+    public class CartViewHolder extends RecyclerView.ViewHolder {
         public AdapterCartBinding binding;
 
         public CartViewHolder(@NonNull AdapterCartBinding binding) {

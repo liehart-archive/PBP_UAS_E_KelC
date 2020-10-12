@@ -1,6 +1,7 @@
 package com.tugasbesar.alamart.profile;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.firebase.firestore.auth.User;
@@ -20,8 +22,11 @@ import com.tugasbesar.alamart.R;
 public class ProfileFragment extends Fragment {
 
     private MaterialToolbar toolbar;
+    private Profile profile;
+    private TextView emailField;
 
-    public ProfileFragment() {}
+    public ProfileFragment() {
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,6 +44,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        emailField = view.findViewById(R.id.emailUser);
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -52,4 +58,35 @@ public class ProfileFragment extends Fragment {
             }
         });
     }
+
+    private void getProfile() {
+        class GetProfile extends AsyncTask<Void, Void, Profile> {
+
+            @Override
+            protected Profile doInBackground(Void... voids) {
+                Profile profile = ProfileDatabaseClient
+                        .getInstance(getContext())
+                        .getDatabase()
+                        .profileDao()
+                        .getProfile();
+
+                return profile;
+            }
+
+            @Override
+            protected void onPostExecute(Profile profile) {
+                super.onPostExecute(profile);
+                setProfileHere(profile);
+            }
+        }
+
+        GetProfile getProfile = new GetProfile();
+        getProfile.execute();
+    }
+
+    private void setProfileHere(Profile profile) {
+        this.profile = profile;
+        emailField.setText(profile.email);
+    }
+
 }

@@ -3,25 +3,25 @@
         android:id="@+id/home_page"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_home_24"
-        android:title="@string/menu_beranda"/>
+        android:title="@string/menu_beranda" />
     <item
         android:id="@+id/search_page"
         android:enabled="true"
         android:icon="@drawable/ic_search_black_24dp"
-        android:title="@string/menu_telusuri"/>
+        android:title="@string/menu_telusuri" />
     <item
         android:id="@+id/map_page"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_store_24"
-        android:title="@string/menu_toko"/>
+        android:title="@string/menu_toko" />
     <item
         android:id="@+id/cart_page"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_shopping_cart_24"
-        android:title="@string/menu_keranjang"/>
+        android:title="@string/menu_keranjang" />
     <item
         android:id="@+id/profile_page"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_person_24"
-        android:title="@string/menu_akun"/>
+        android:title="@string/menu_akun" />
 </menu>

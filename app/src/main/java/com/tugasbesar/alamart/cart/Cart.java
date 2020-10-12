@@ -93,7 +93,7 @@ public class Cart implements Serializable {
 
     @BindingAdapter("imageUrl")
     public static void setImage(ImageView view, String imageURL) {
-        if(imageURL != null) {
+        if (imageURL != null) {
             Glide.with(view.getContext())
                     .load(imageURL)
                     .into(view);

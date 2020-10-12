@@ -9,7 +9,6 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -22,7 +21,7 @@ import com.tugasbesar.alamart.R;
 
 public class AuthActivity extends AppCompatActivity {
 
-    private String CHANNEL_ID = "Channel 1";
+    private String CHANNEL_ID = "Auth Channel";
 
     FirebaseAuth firebaseAuth;
     FirebaseUser user;
@@ -37,11 +36,11 @@ public class AuthActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
 
-        createNotificationChannel();
-
         if (user != null) {
             finish();
         } else {
+            createNotificationChannel();
+
             Fragment loginFragment = new LoginFragment();
             getSupportFragmentManager()
                     .beginTransaction()
@@ -61,25 +60,15 @@ public class AuthActivity extends AppCompatActivity {
                 .commit();
     }
 
-    public void goToLogin(View view) {
-        Fragment loginFragment = new LoginFragment();
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragment_layout, loginFragment)
-                .commit();
-    }
-
     private void createNotificationChannel() {
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "Channel 1";
-            String description = "This is Channel 1";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
-            channel.setDescription(description);
+        CharSequence name = "Auth Channel";
+        String description = "This is Auth Channel";
+        int importance = NotificationManager.IMPORTANCE_DEFAULT;
+        NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+        channel.setDescription(description);
 
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
+        NotificationManager notificationManager = getSystemService(NotificationManager.class);
+        notificationManager.createNotificationChannel(channel);
     }
 
     public void addNotification(String title, String content) {
@@ -104,13 +93,12 @@ public class AuthActivity extends AppCompatActivity {
         }
 
         this.doubleTapToExit = true;
-        Toast.makeText(this, "Tekan sekali lagi untuk keluar", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, R.string.exit_toast, Toast.LENGTH_SHORT).show();
 
         new Handler().postDelayed(new Runnable() {
-
             @Override
             public void run() {
-                doubleTapToExit=false;
+                doubleTapToExit = false;
             }
         }, 2000);
     }

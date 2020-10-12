@@ -23,6 +23,7 @@ import com.tugasbesar.alamart.auth.AuthActivity;
 public class UserSettingActivity extends AppCompatActivity {
 
     TextView semVer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppThemeWithToolbar);
@@ -44,7 +45,7 @@ public class UserSettingActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
                 return true;
@@ -98,7 +99,6 @@ public class UserSettingActivity extends AppCompatActivity {
                     return true;
                 }
             });
-
 
 
             if (FirebaseAuth.getInstance().getCurrentUser() == null) {

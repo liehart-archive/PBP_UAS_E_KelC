@@ -41,7 +41,8 @@ public class RegisterFragment extends Fragment {
     private TextInputEditText inputEmail, inputPassword;
     private TextInputLayout inputEmailLayout, inputPasswordLayout;
 
-    public RegisterFragment() {}
+    public RegisterFragment() {
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -129,7 +130,7 @@ public class RegisterFragment extends Fragment {
 
         btnRegister.setEnabled(false);
 
-        if(Patterns.EMAIL_ADDRESS.matcher(inputEmail.getText().toString().toLowerCase()).matches()
+        if (Patterns.EMAIL_ADDRESS.matcher(inputEmail.getText().toString().toLowerCase()).matches()
                 && inputPassword.getText().toString().length() >= 6) {
             btnRegister.setEnabled(true);
         }

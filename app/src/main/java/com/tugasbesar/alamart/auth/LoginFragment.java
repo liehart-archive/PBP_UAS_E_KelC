@@ -2,6 +2,7 @@ package com.tugasbesar.alamart.auth;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -32,8 +33,15 @@ import com.google.firebase.auth.FirebaseUser;
 
 import com.tugasbesar.alamart.MainActivity;
 import com.tugasbesar.alamart.R;
+import com.tugasbesar.alamart.cart.Cart;
+import com.tugasbesar.alamart.cart.CartDao;
+import com.tugasbesar.alamart.cart.CartDatabaseClient;
+import com.tugasbesar.alamart.item.Item;
+import com.tugasbesar.alamart.profile.Profile;
+import com.tugasbesar.alamart.profile.ProfileDao;
+import com.tugasbesar.alamart.profile.ProfileDatabaseClient;
 
-public class LoginFragment extends Fragment  {
+public class LoginFragment extends Fragment {
 
     private FirebaseAuth firebaseAuth;
 
@@ -42,7 +50,8 @@ public class LoginFragment extends Fragment  {
     private TextInputEditText inputEmail, inputPassword;
     private TextInputLayout inputEmailLayout, inputPasswordLayout;
 
-    public LoginFragment() {}
+    public LoginFragment() {
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -131,7 +140,7 @@ public class LoginFragment extends Fragment  {
 
         btnLogin.setEnabled(false);
 
-        if(Patterns.EMAIL_ADDRESS.matcher(inputEmail.getText().toString().toLowerCase()).matches()
+        if (Patterns.EMAIL_ADDRESS.matcher(inputEmail.getText().toString().toLowerCase()).matches()
                 && inputPassword.getText().toString().length() >= 6) {
             btnLogin.setEnabled(true);
         }
@@ -166,6 +175,11 @@ public class LoginFragment extends Fragment  {
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
                             Toast.makeText(getActivity().getApplicationContext(), "Login success", Toast.LENGTH_SHORT).show();
+
+                            Profile profile = new Profile();
+                            profile.setEmail(firebaseAuth.getCurrentUser().getEmail());
+                            setProfile(profile);
+
                         } else {
                             if (task.getException() instanceof FirebaseAuthInvalidUserException) {
                                 inputEmailLayout.setError("Email tidak ditemukan");
@@ -181,5 +195,28 @@ public class LoginFragment extends Fragment  {
                     }
                 });
 
+    }
+
+    private void setProfile(Profile profile) {
+
+        class SetProfile extends AsyncTask<Void, Void, Void> {
+
+            public String message;
+
+            @Override
+            protected Void doInBackground(Void... voids) {
+                ProfileDao profileDao = ProfileDatabaseClient.getInstance(getContext()).getDatabase().profileDao();
+                profileDao.insert(profile);
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+            }
+        }
+
+        SetProfile setProfile = new SetProfile();
+        setProfile.execute();
     }
 }

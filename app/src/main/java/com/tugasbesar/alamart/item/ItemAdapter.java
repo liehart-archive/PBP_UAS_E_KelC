@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,7 +16,7 @@ import com.tugasbesar.alamart.databinding.AdapterItemBinding;
 
 import java.util.List;
 
-public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder> implements ItemClickListener{
+public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder> implements ItemClickListener {
 
     private Context context;
     private List<Item> result;
@@ -56,7 +57,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
     }
 
 
-    public class ItemViewHolder extends RecyclerView.ViewHolder{
+    public class ItemViewHolder extends RecyclerView.ViewHolder {
         public AdapterItemBinding binding;
 
         public ItemViewHolder(@NonNull AdapterItemBinding binding) {

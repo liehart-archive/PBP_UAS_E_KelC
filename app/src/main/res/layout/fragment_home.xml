@@ -5,9 +5,10 @@
     xmlns:shimmer="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="Adapter"
-            type="com.tugasbesar.alamart.item.ItemAdapter"/>
+            type="com.tugasbesar.alamart.item.ItemAdapter" />
     </data>
 
     <RelativeLayout
@@ -46,15 +47,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
+
                     <include
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_marginRight="5dp"
                         android:layout_height="wrap_content"
                         layout="@layout/adapter_item_loader" />
+
                     <include
                         android:layout_marginLeft="5dp"
                         android:layout_width="0dp"
@@ -62,16 +66,19 @@
                         android:layout_height="wrap_content"
                         layout="@layout/adapter_item_loader" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
+
                     <include
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_marginRight="5dp"
                         android:layout_height="wrap_content"
                         layout="@layout/adapter_item_loader" />
+
                     <include
                         android:layout_marginLeft="5dp"
                         android:layout_width="0dp"
@@ -99,7 +106,7 @@
                 app:spanCount="2"
                 tools:layout_editor_absoluteX="0dp"
                 tools:listitem="@layout/adapter_item"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

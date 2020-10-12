@@ -125,7 +125,7 @@ public class ExploreActivity extends AppCompatActivity {
                         adapter.notifyDataSetChanged();
                     }
                 } else {
-                    Log.e(TAG,"Load more error with: "+ response.code());
+                    Log.e(TAG, "Load more error with: " + response.code());
                 }
                 if (!response.body().isLast() && executing) {
                     executing = false;
