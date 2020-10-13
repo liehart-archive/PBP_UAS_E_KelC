@@ -14,16 +14,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.firebase.firestore.auth.User;
 import com.tugasbesar.alamart.R;
+import com.tugasbesar.alamart.utilities.CameraActivity;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileFragment extends Fragment {
 
     private MaterialToolbar toolbar;
     private Profile profile;
     private TextView emailField, nameField, telephoneField, addressField;
+    CircleImageView circleImageView;
 
     public ProfileFragment() {
     }
@@ -48,6 +53,8 @@ public class ProfileFragment extends Fragment {
         nameField = view.findViewById(R.id.nameUser);
         telephoneField = view.findViewById(R.id.phoneUser);
         addressField = view.findViewById(R.id.placeUser);
+        circleImageView = view.findViewById(R.id.profile_image);
+
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -61,6 +68,14 @@ public class ProfileFragment extends Fragment {
             }
         });
         getProfile();
+
+        circleImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), CameraActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void getProfile() {
