@@ -197,7 +197,7 @@ public class LoginFragment extends Fragment {
 
     }
 
-    private void setProfile(Profile profile) {
+    private void setProfile(final Profile profile) {
 
         class SetProfile extends AsyncTask<Void, Void, Void> {
 

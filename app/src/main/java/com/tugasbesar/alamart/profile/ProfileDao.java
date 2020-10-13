@@ -9,7 +9,7 @@ import androidx.room.Update;
 
 @Dao
 public interface ProfileDao {
-    @Query("SELECT * FROM profile")
+    @Query("SELECT * FROM profile LIMIT 1")
     Profile getProfile();
 
     @Insert
@@ -20,4 +20,7 @@ public interface ProfileDao {
 
     @Delete
     void delete(Profile profile);
+
+    @Query("DELETE FROM profile")
+    void deleteAll();
 }

@@ -151,7 +151,7 @@ public class ItemDetail extends AppCompatActivity {
                         cart.setImage_url(item.image.get(0));
                     }
                     cart.setJumlahBarang(1);
-                    cart.setTotalHarga(item.price * 1);
+                    cart.setTotalHarga((item.price - (item.price * item.discount / 100)) * 1);
                     client.insert(cart);
                     message = "Produk berhasil ditambahkan";
                 } else {

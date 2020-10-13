@@ -10,9 +10,10 @@
             type="com.tugasbesar.alamart.cart.CartAdapter" />
     </data>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appBarLayout"
@@ -32,17 +33,51 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
+        <LinearLayout
+            android:id="@+id/noCart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_gravity="center"
+                android:layout_width="269dp"
+                android:layout_height="263dp"
+                android:contentDescription="@string/cart_empty_img_desc"
+                android:src="@drawable/ic_undraw_not_found_60pq" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:text="@string/cart_empty_title" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:paddingHorizontal="30dp"
+                android:text="@string/cart_emtpy_subtitle" />
+        </LinearLayout>
+
+
         <androidx.recyclerview.widget.RecyclerView
             app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
             android:id="@+id/recycler_view_cart"
-            android:layout_marginTop="56dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+
             android:adapter="@{Adapter}"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:spanCount="1"
             tools:layout_editor_absoluteX="0dp"
             tools:listitem="@layout/adapter_cart" />
 
-    </RelativeLayout>
+    </LinearLayout>
 </layout>

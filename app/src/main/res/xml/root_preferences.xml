@@ -1,6 +1,11 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <Preference
+        android:key="change_profile"
+        android:title="Ubah Profil"
+        app:iconSpaceReserved="false"/>
+
     <ListPreference
         android:title="@string/setting_bahasa"
         android:summary="Bahasa Indonesia"
@@ -11,7 +16,7 @@
         android:entryValues="@array/lang_listValues" />
 
     <Preference
-        android:key="@string/exit_app"
+        android:key="exit_app"
         android:icon="@drawable/ic_baseline_exit_to_app_24"
         android:title="@string/setting_exit" />
 

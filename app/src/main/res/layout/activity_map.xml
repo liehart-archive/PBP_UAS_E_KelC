@@ -23,7 +23,7 @@
         android:layout_gravity="bottom"
         android:layout_marginBottom="16dp"
         android:enabled="false"
-        android:text="Start_navigation" />
+        android:text="Navigasi ke Toko" />
 
     <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
     <!--        android:id="@+id/fab_location_search"-->

@@ -23,7 +23,7 @@ public class ProfileFragment extends Fragment {
 
     private MaterialToolbar toolbar;
     private Profile profile;
-    private TextView emailField;
+    private TextView emailField, nameField, telephoneField, addressField;
 
     public ProfileFragment() {
     }
@@ -45,6 +45,9 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         emailField = view.findViewById(R.id.emailUser);
+        nameField = view.findViewById(R.id.nameUser);
+        telephoneField = view.findViewById(R.id.phoneUser);
+        addressField = view.findViewById(R.id.placeUser);
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -57,6 +60,7 @@ public class ProfileFragment extends Fragment {
                 return false;
             }
         });
+        getProfile();
     }
 
     private void getProfile() {
@@ -76,17 +80,41 @@ public class ProfileFragment extends Fragment {
             @Override
             protected void onPostExecute(Profile profile) {
                 super.onPostExecute(profile);
-                setProfileHere(profile);
+                try {
+
+                    if (profile.name == "") {
+                        nameField.setText("-");
+                    } else {
+                        nameField.setText(profile.name);
+                    }
+
+                    if (profile.email == "") {
+                        emailField.setText("-");
+                    } else {
+                        emailField.setText(profile.email);
+                    }
+
+                    if (profile.telephone == "") {
+                        telephoneField.setText("-");
+                    } else {
+                        telephoneField.setText(profile.telephone);
+                    }
+
+                    System.out.println(profile.address);
+
+                    if (profile.address == "") {
+                        addressField.setText("-");
+                    } else {
+                        addressField.setText(profile.address);
+                    }
+
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
             }
         }
 
         GetProfile getProfile = new GetProfile();
         getProfile.execute();
     }
-
-    private void setProfileHere(Profile profile) {
-        this.profile = profile;
-        emailField.setText(profile.email);
-    }
-
 }

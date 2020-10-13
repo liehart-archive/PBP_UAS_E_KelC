@@ -25,7 +25,7 @@ public class Profile implements Serializable {
     public String address;
 
     @ColumnInfo(name = "birthday")
-    public Date birthday;
+    public String birthday;
 
     @ColumnInfo(name = "lang_pref")
     public String lang_pref;
@@ -76,11 +76,11 @@ public class Profile implements Serializable {
         this.address = address;
     }
 
-    public Date getBirthday() {
+    public String getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
 

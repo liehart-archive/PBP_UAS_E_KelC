@@ -18,7 +18,10 @@ public interface CartDao {
     Cart getCartByUUID(String uuid);
 
     @Query("SELECT * FROM cart")
-    LiveData<List<Cart>> getAll();
+    List<Cart> getAll();
+
+    @Query("SELECT * FROM cart")
+    LiveData<List<Cart>> getLiveDAO();
 
     @Insert
     void insert(Cart cart);
@@ -29,4 +32,6 @@ public interface CartDao {
     @Delete
     void delete(Cart cart);
 
+    @Query("DELETE FROM cart")
+    void deleteAll();
 }

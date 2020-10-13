@@ -111,10 +111,10 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.home_page:
                         fragment = new HomeFragment();
                         break;
-                    case R.id.search_page:
-                        intent = new Intent(MainActivity.this, SearchActivity.class);
-                        startActivity(intent);
-                        break;
+//                    case R.id.search_page:
+//                        intent = new Intent(MainActivity.this, SearchActivity.class);
+//                        startActivity(intent);
+//                        break;
                     case R.id.map_page:
                         intent = new Intent(MainActivity.this, MapsActivity.class);
                         startActivity(intent);

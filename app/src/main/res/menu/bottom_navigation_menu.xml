@@ -4,11 +4,11 @@
         android:enabled="true"
         android:icon="@drawable/ic_baseline_home_24"
         android:title="@string/menu_beranda" />
-    <item
-        android:id="@+id/search_page"
-        android:enabled="true"
-        android:icon="@drawable/ic_search_black_24dp"
-        android:title="@string/menu_telusuri" />
+<!--    <item-->
+<!--        android:id="@+id/search_page"-->
+<!--        android:enabled="true"-->
+<!--        android:icon="@drawable/ic_search_black_24dp"-->
+<!--        android:title="@string/menu_telusuri" />-->
     <item
         android:id="@+id/map_page"
         android:enabled="true"

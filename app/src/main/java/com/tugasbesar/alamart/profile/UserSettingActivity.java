@@ -1,7 +1,9 @@
 package com.tugasbesar.alamart.profile;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -19,6 +21,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.tugasbesar.alamart.MainActivity;
 import com.tugasbesar.alamart.R;
 import com.tugasbesar.alamart.auth.AuthActivity;
+import com.tugasbesar.alamart.cart.Cart;
+import com.tugasbesar.alamart.cart.CartDatabaseClient;
 
 public class UserSettingActivity extends AppCompatActivity {
 
@@ -64,6 +68,7 @@ public class UserSettingActivity extends AppCompatActivity {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
             PreferenceScreen screen = getPreferenceScreen();
             Preference exit_preference = getPreferenceManager().findPreference(getString(R.string.exit_app));
+            Preference edit_profile = getPreferenceManager().findPreference("change_profile");
             sharedPreferences = getContext().getSharedPreferences("locale", MODE_PRIVATE);
 
             ListPreference listPreference = getPreferenceManager().findPreference("languageKey");
@@ -101,6 +106,15 @@ public class UserSettingActivity extends AppCompatActivity {
             });
 
 
+            edit_profile.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    Intent intent = new Intent(getActivity(), ProfileEditActivity.class);
+                    startActivity(intent);
+                    return true;
+                }
+            });
+
             if (FirebaseAuth.getInstance().getCurrentUser() == null) {
                 screen.removePreference(exit_preference);
             } else {
@@ -116,6 +130,7 @@ public class UserSettingActivity extends AppCompatActivity {
                         return true;
                     }
                 });
+
             }
         }
     }

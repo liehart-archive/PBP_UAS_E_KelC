@@ -9,6 +9,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -18,6 +19,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import com.tugasbesar.alamart.R;
+import com.tugasbesar.alamart.cart.CartDatabaseClient;
+import com.tugasbesar.alamart.profile.ProfileDatabaseClient;
 
 public class AuthActivity extends AppCompatActivity {
 
@@ -39,6 +42,8 @@ public class AuthActivity extends AppCompatActivity {
         if (user != null) {
             finish();
         } else {
+            deleteUserData();
+
             createNotificationChannel();
 
             Fragment loginFragment = new LoginFragment();
@@ -101,5 +106,32 @@ public class AuthActivity extends AppCompatActivity {
                 doubleTapToExit = false;
             }
         }, 2000);
+    }
+
+    private void deleteUserData() {
+
+        class DeleteUserData extends AsyncTask<Void, Void, Void> {
+
+            @Override
+            protected Void doInBackground(Void... voids) {
+
+                CartDatabaseClient.getInstance(getApplicationContext()).getDatabase()
+                        .cartDao()
+                        .deleteAll();
+                ProfileDatabaseClient.getInstance(getApplicationContext()).getDatabase()
+                        .profileDao()
+                        .deleteAll();
+
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+            }
+        }
+
+        DeleteUserData deleteUserData = new DeleteUserData();
+        deleteUserData.execute();
     }
 }
