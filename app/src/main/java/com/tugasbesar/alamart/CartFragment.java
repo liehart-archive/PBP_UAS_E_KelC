@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
@@ -41,7 +42,7 @@ public class CartFragment extends Fragment {
     private CartAdapter adapter;
     private MaterialButton btnDelete;
     private List<Cart> carts;
-    private LinearLayout noCart;
+    private ScrollView noCart;
 
     public CartFragment() {
     }

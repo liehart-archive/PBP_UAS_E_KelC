@@ -7,161 +7,172 @@
     android:background="@android:color/transparent"
     tools:context=".profile.ProfileFragment">
 
-
-    <RelativeLayout
-        android:id="@+id/rellay1"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#ffffff"
-        android:paddingBottom="20dp">
-
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appBarLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/profileTopAppBar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/primaryWhite"
-                app:title="Akun Saya"
-                app:menu="@menu/top_bar_profile"
-                app:titleTextColor="@color/colorPrimary" />
-
-        </com.google.android.material.appbar.AppBarLayout>
-
-    </RelativeLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="76dp"
-        android:orientation="vertical">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/profile_image"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:src="@drawable/no_avatar"
-            app:civ_border_color="#BBDEFB"
-            app:civ_border_width="2dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/nameUser"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="16dp"
-            android:fontFamily="sans-serif-light"
-            android:text="-"
-            android:textColor="@color/colorPrimary"
-            android:textSize="25sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profile_image" />
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginHorizontal="32dp"
-            android:layout_marginTop="16dp"
-            android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@+id/nameUser"
-            tools:layout_editor_absoluteX="32dp">
-
-            <LinearLayout
+            android:layout_height="match_parent"
+            android:layout_marginBottom="40dp"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:id="@+id/rellay1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:background="#ffffff"
+                android:paddingBottom="20dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <com.google.android.material.appbar.AppBarLayout
+                    android:id="@+id/appBarLayout"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:text="@string/email"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="12sp" />
+                    app:layout_constraintTop_toTopOf="parent">
 
-                <TextView
-                    android:id="@+id/emailUser"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/ic_mail"
-                    android:drawablePadding="10dp"
-                    android:drawableTint="@color/colorPrimary"
-                    android:fontFamily="sans-serif-light"
-                    android:text="-"
-                    android:textColor="#000000"
-                    android:textSize="18sp" />
+                    <com.google.android.material.appbar.MaterialToolbar
+                        android:id="@+id/profileTopAppBar"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        android:background="@color/primaryWhite"
+                        app:title="Akun Saya"
+                        app:menu="@menu/top_bar_profile"
+                        app:titleTextColor="@color/colorPrimary" />
 
-            </LinearLayout>
+                </com.google.android.material.appbar.AppBarLayout>
 
-            <LinearLayout
+            </RelativeLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="76dp"
                 android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:text="@string/phone"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="12sp" />
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profile_image"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:src="@drawable/no_avatar"
+                    app:civ_border_color="#BBDEFB"
+                    app:civ_border_width="2dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/phoneUser"
+                    android:id="@+id/nameUser"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/ic_phone"
-                    android:drawablePadding="10dp"
-                    android:drawableTint="@color/colorPrimary"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="16dp"
                     android:fontFamily="sans-serif-light"
                     android:text="-"
-                    android:textColor="#000000"
-                    android:textSize="18sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:text="@string/address"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="12sp" />
+                    android:textSize="25sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/profile_image" />
 
-                <TextView
-                    android:id="@+id/placeUser"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/ic_place"
-                    android:drawablePadding="10dp"
-                    android:drawableTint="@color/colorPrimary"
-                    android:fontFamily="sans-serif-light"
-                    android:text="-"
-                    android:textColor="#000000"
-                    android:textSize="18sp" />
+                    android:layout_centerInParent="true"
+                    android:layout_marginHorizontal="32dp"
+                    android:layout_marginTop="16dp"
+                    android:orientation="vertical"
+                    app:layout_constraintTop_toBottomOf="@+id/nameUser"
+                    tools:layout_editor_absoluteX="32dp">
 
-            </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:text="@string/email"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/emailUser"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableStart="@drawable/ic_mail"
+                            android:drawablePadding="10dp"
+                            android:drawableTint="@color/colorPrimary"
+                            android:fontFamily="sans-serif-light"
+                            android:text="-"
+                            android:textColor="#000000"
+                            android:textSize="18sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:text="@string/phone"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/phoneUser"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableStart="@drawable/ic_phone"
+                            android:drawablePadding="10dp"
+                            android:drawableTint="@color/colorPrimary"
+                            android:fontFamily="sans-serif-light"
+                            android:text="-"
+                            android:textColor="#000000"
+                            android:textSize="18sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:text="@string/address"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/placeUser"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableStart="@drawable/ic_place"
+                            android:drawablePadding="10dp"
+                            android:drawableTint="@color/colorPrimary"
+                            android:fontFamily="sans-serif-light"
+                            android:text="-"
+                            android:textColor="#000000"
+                            android:textSize="18sp" />
+
+                    </LinearLayout>
 
 
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </FrameLayout>
 
 
