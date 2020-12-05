@@ -10,14 +10,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.MenuItem;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -26,14 +23,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.messaging.FirebaseMessaging;
-import com.tugasbesar.alamart.auth.AuthActivity;
-import com.tugasbesar.alamart.cart.Cart;
-import com.tugasbesar.alamart.cart.CartDao;
-import com.tugasbesar.alamart.cart.CartDatabaseClient;
-import com.tugasbesar.alamart.item.Item;
+import com.tugasbesar.alamart.views.auth.AuthActivity;
 import com.tugasbesar.alamart.map.MapsActivity;
 import com.tugasbesar.alamart.profile.ProfileFragment;
-import com.tugasbesar.alamart.search.SearchActivity;
 
 import java.util.Locale;
 

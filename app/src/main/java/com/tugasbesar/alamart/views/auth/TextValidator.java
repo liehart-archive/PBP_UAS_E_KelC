@@ -1,4 +1,4 @@
-package com.tugasbesar.alamart.auth;
+package com.tugasbesar.alamart.views.auth;
 
 import android.text.Editable;
 import android.text.TextWatcher;

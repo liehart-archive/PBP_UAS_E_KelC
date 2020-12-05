@@ -2,10 +2,8 @@ package com.tugasbesar.alamart.profile;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.FragmentTransaction;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -13,11 +11,7 @@ import android.widget.Toast;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.tugasbesar.alamart.R;
-import com.tugasbesar.alamart.auth.TextValidator;
-import com.tugasbesar.alamart.cart.Cart;
-import com.tugasbesar.alamart.cart.CartDatabaseClient;
-
-import java.util.List;
+import com.tugasbesar.alamart.views.auth.TextValidator;
 
 public class ProfileEditActivity extends AppCompatActivity {
 

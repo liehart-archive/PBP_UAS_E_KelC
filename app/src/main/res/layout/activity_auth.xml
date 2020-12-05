@@ -8,6 +8,6 @@
     android:layout_marginVertical="24dp"
     android:background="#FFF"
     android:orientation="vertical"
-    tools:context=".auth.AuthActivity">
+    tools:context=".views.auth.AuthActivity">
 
 </FrameLayout>

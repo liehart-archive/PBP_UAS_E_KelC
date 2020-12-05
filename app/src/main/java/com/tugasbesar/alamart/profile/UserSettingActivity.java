@@ -1,9 +1,7 @@
 package com.tugasbesar.alamart.profile;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -20,9 +18,7 @@ import androidx.preference.PreferenceScreen;
 import com.google.firebase.auth.FirebaseAuth;
 import com.tugasbesar.alamart.MainActivity;
 import com.tugasbesar.alamart.R;
-import com.tugasbesar.alamart.auth.AuthActivity;
-import com.tugasbesar.alamart.cart.Cart;
-import com.tugasbesar.alamart.cart.CartDatabaseClient;
+import com.tugasbesar.alamart.views.auth.AuthActivity;
 
 public class UserSettingActivity extends AppCompatActivity {
 
