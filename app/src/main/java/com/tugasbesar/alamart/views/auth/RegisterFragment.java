@@ -317,9 +317,12 @@ public class RegisterFragment extends Fragment {
                 if (error.networkResponse.statusCode == 404) {
                     try {
                         JSONObject obj = new JSONObject(new String(error.networkResponse.data, "utf-8"));
-                        if(obj.getString("success").equals("true"))
+                        if(obj.getJSONObject("data").getJSONArray("email").get(0) != null) {
+                            Toast.makeText(getContext(), "Email sudah terdaftar", Toast.LENGTH_SHORT).show();
+                            inputEmailLayout.setError("Email sudah terdaftar");
+                        }
+                        else if(obj.getString("success").equals("true"))
                             Toast.makeText(getContext(), obj.getString("message"), Toast.LENGTH_SHORT).show();
-                        System.out.println(obj.toString());
                     } catch (JSONException | UnsupportedEncodingException e) {
                         e.printStackTrace();
                     }

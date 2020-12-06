@@ -6,10 +6,9 @@ import java.io.Serializable;
 
 public class User implements Serializable {
 
-    private String name, email, address, telephone, image;
-    private DateTime dob;
+    private String name, email, address, telephone, image, dob;
 
-    public User(String name, String email, String address, String telephone, String image, DateTime dob) {
+    public User(String name, String email, String address, String telephone, String image, String dob) {
         this.name = name;
         this.email = email;
         this.address = address;
@@ -58,11 +57,11 @@ public class User implements Serializable {
         this.image = image;
     }
 
-    public DateTime getDob() {
+    public String getDob() {
         return dob;
     }
 
-    public void setDob(DateTime dob) {
+    public void setDob(String dob) {
         this.dob = dob;
     }
 }

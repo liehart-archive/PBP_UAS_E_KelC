@@ -81,7 +81,6 @@
         android:layout_height="62dp"
         android:layout_gravity="center"
         android:layout_marginTop="8dp"
-        android:enabled="false"
         android:text="Masuk"
         app:cornerRadius="8dp"
         app:layout_constraintEnd_toEndOf="parent"

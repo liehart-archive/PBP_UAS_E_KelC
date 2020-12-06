@@ -1,14 +1,11 @@
 package com.tugasbesar.alamart.views.auth;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.AsyncTask;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,20 +15,17 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
-import com.google.firebase.auth.FirebaseAuthInvalidUserException;
-
-import com.tugasbesar.alamart.MainActivity;
 import com.tugasbesar.alamart.R;
-import com.tugasbesar.alamart.profile.Profile;
-import com.tugasbesar.alamart.profile.ProfileDao;
-import com.tugasbesar.alamart.profile.ProfileDatabaseClient;
+import com.tugasbesar.alamart.api.ApiClient;
+import com.tugasbesar.alamart.api.ApiInterface;
+import com.tugasbesar.alamart.api.UserResponse;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LoginFragment extends Fragment {
 
@@ -41,6 +35,7 @@ public class LoginFragment extends Fragment {
     private TextView back2register;
     private TextInputEditText inputEmail, inputPassword;
     private TextInputLayout inputEmailLayout, inputPasswordLayout;
+    private SharedPreferences sharedPreferences;
 
     public LoginFragment() {
     }
@@ -73,7 +68,7 @@ public class LoginFragment extends Fragment {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                login();
+                validateInput();
             }
         });
 
@@ -87,60 +82,30 @@ public class LoginFragment extends Fragment {
                         .commit();
             }
         });
+     }
 
-        inputEmail.addTextChangedListener(new TextValidator(inputEmailLayout, inputEmail) {
-            @Override
-            public void validator(TextInputLayout textInputLayout, TextInputEditText textInputEditText, String s) {
-                if (s.trim().isEmpty()) {
-                    textInputLayout.setError("Email tidak boleh kosong.");
-                } else if (!Patterns.EMAIL_ADDRESS.matcher(s).matches()) {
-                    textInputLayout.setError("Email tidak valid");
-                } else {
-                    textInputLayout.setError(null);
-                    refreshButton();
-                }
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                super.onTextChanged(s, start, before, count);
-                refreshButton();
-            }
-        });
-
-        inputPassword.addTextChangedListener(new TextValidator(inputPasswordLayout, inputPassword) {
-            @Override
-            public void validator(TextInputLayout textInputLayout, TextInputEditText textInputEditText, String s) {
-                if (s.trim().isEmpty()) {
-                    textInputLayout.setError("Password tidak boleh kosong.");
-                } else if (s.length() < 6) {
-                    textInputLayout.setError("Pasword harus memiliki minimal 6 karakter");
-                } else {
-                    textInputLayout.setError(null);
-                }
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                super.onTextChanged(s, start, before, count);
-                refreshButton();
-            }
-        });
-    }
-
-    private void refreshButton() {
-
-        btnLogin.setEnabled(false);
-
+    private void validateInput() {
+        if (inputPassword.getText().toString().isEmpty()) {
+            inputPassword.setError("Password tidak boleh kosong");
+        }
+        if (inputEmail.getText().toString().isEmpty()) {
+            inputEmail.setError("Email tidak boleh kosong");
+        }
+        if (!Patterns.EMAIL_ADDRESS.matcher(inputEmail.getText().toString().toLowerCase()).matches()) {
+            inputEmail.setError("Email tidak valid");
+        }
+        if (inputPassword.getText().toString().length() < 6) {
+            inputPassword.setError("Password minimal 6 karakter");
+        }
         if (Patterns.EMAIL_ADDRESS.matcher(inputEmail.getText().toString().toLowerCase()).matches()
                 && inputPassword.getText().toString().length() >= 6) {
-            btnLogin.setEnabled(true);
+            login();
         }
     }
 
-
     private void login() {
 
+        btnLogin.setEnabled(false);
         final String email = inputEmail.getText().toString().toLowerCase();
         final String password = inputPassword.getText().toString();
 
@@ -148,67 +113,32 @@ public class LoginFragment extends Fragment {
         inputEmailLayout.setError(null);
         inputEmail.clearFocus();
         inputPassword.clearFocus();
-        btnLogin.setEnabled(false);
-        btnLogin.setText("Loading...");
 
         final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
 
-        firebaseAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            ((AuthActivity) getActivity()).addNotification(
-                                    "Login Berhasil",
-                                    "Selamat anda telah berhasil login."
-                            );
-                            Intent intent = new Intent(getActivity(), MainActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(intent);
-                            Toast.makeText(getActivity().getApplicationContext(), "Login success", Toast.LENGTH_SHORT).show();
+        ApiInterface apiService = ApiClient.getRetrofit().create(ApiInterface.class);
+        Call<UserResponse> add = apiService.loginUser(email, password);
 
-                            Profile profile = new Profile();
-                            profile.setEmail(firebaseAuth.getCurrentUser().getEmail());
-                            setProfile(profile);
-
-                        } else {
-                            if (task.getException() instanceof FirebaseAuthInvalidUserException) {
-                                inputEmailLayout.setError("Email tidak ditemukan");
-                                inputEmail.requestFocus();
-                                imm.showSoftInput(inputEmail, InputMethodManager.SHOW_IMPLICIT);
-                            }
-                            if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-                                inputPasswordLayout.setError("Password salah");
-                                inputPassword.requestFocus();
-                                imm.showSoftInput(inputPassword, InputMethodManager.SHOW_IMPLICIT);
-                            }
-                        }
+        add.enqueue(new Callback<UserResponse>() {
+            @Override
+            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
+                if (response.code() == 200) {
+                    String message = response.body().getMessage();
+                    if (message.equals("Unauthorised")) {
+                        message = "User tidak terdaftar";
                     }
-                });
-
-    }
-
-    private void setProfile(final Profile profile) {
-
-        class SetProfile extends AsyncTask<Void, Void, Void> {
-
-            public String message;
-
-            @Override
-            protected Void doInBackground(Void... voids) {
-                ProfileDao profileDao = ProfileDatabaseClient.getInstance(getContext()).getDatabase().profileDao();
-                profileDao.insert(profile);
-                return null;
+                    Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+                }
+                btnLogin.setEnabled(true);
             }
 
             @Override
-            protected void onPostExecute(Void aVoid) {
-                super.onPostExecute(aVoid);
+            public void onFailure(Call<UserResponse> call, Throwable t) {
+                System.out.println(t.getMessage());
+                Toast.makeText(getActivity(), "Kesalahan Jaringan", Toast.LENGTH_SHORT).show();
+                btnLogin.setEnabled(true);
             }
-        }
-
-        SetProfile setProfile = new SetProfile();
-        setProfile.execute();
+        });
     }
 }

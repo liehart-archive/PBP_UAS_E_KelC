@@ -83,12 +83,11 @@ public class MainActivity extends AppCompatActivity {
             editor.commit();
         }
 
-        if (locale.equals("en_US")) {
-            setApplicationLocale("en");
-        } else {
-            setApplicationLocale("id");
-        }
-
+//        if (locale.equals("en_US")) {
+//            setApplicationLocale("en");
+//        } else {
+//            setApplicationLocale("id");
+//        }
 
         setContentView(R.layout.activity_main);
 
