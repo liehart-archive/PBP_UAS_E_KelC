@@ -22,20 +22,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.facebook.shimmer.ShimmerFrameLayout;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.tugasbesar.alamart.Adapters.AdapterBarang;
 import com.tugasbesar.alamart.Models.Barang;
 import com.tugasbesar.alamart.api.AlamartAPI;
-import com.tugasbesar.alamart.databinding.FragmentHomeBinding;
-import com.tugasbesar.alamart.item.Item;
-import com.tugasbesar.alamart.item.ItemAdapter;
-import com.tugasbesar.alamart.item.ItemSpaceDecorator;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
