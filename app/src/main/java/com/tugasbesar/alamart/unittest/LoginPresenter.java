@@ -1,10 +1,6 @@
 package com.tugasbesar.alamart.unittest;
 
-import android.util.Patterns;
-
 import androidx.core.util.PatternsCompat;
-
-import com.tugasbesar.alamart.models.User;
 
 public class LoginPresenter {
 

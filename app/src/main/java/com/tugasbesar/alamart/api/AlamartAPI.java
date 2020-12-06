@@ -6,6 +6,5 @@ public class AlamartAPI {
 
     public static final String AUTH_API = ROOT_API + "user";
     public static final String LOGIN_API = ROOT_API + "login";
-    public static final String TRANSAKSI_API = ROOT_API + "transaksi";
-    public static final String ITEM_API = ROOT_API + "item";
+    public static final String BARANG_API = ROOT_API + "barang";
 }

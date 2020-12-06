@@ -1,5 +1,6 @@
 package com.tugasbesar.alamart.profile;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -14,11 +15,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.appbar.MaterialToolbar;
-import com.google.firebase.firestore.auth.User;
 import com.tugasbesar.alamart.R;
+import com.tugasbesar.alamart.Models.User;
+import com.tugasbesar.alamart.Models.UserDatabaseClient;
 import com.tugasbesar.alamart.utilities.CameraActivity;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -27,8 +28,10 @@ public class ProfileFragment extends Fragment {
 
     private MaterialToolbar toolbar;
     private Profile profile;
-    private TextView emailField, nameField, telephoneField, addressField;
+    private User user;
+    private TextView emailField, nameField, telephoneField, addressField, dobField;
     CircleImageView circleImageView;
+    int LAUNCH_PROFILE = 1;
 
     public ProfileFragment() {
     }
@@ -53,6 +56,7 @@ public class ProfileFragment extends Fragment {
         nameField = view.findViewById(R.id.nameUser);
         telephoneField = view.findViewById(R.id.phoneUser);
         addressField = view.findViewById(R.id.placeUser);
+        dobField = view.findViewById(R.id.dobUser);
         circleImageView = view.findViewById(R.id.profile_image);
 
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
@@ -61,13 +65,14 @@ public class ProfileFragment extends Fragment {
                 switch (item.getItemId()) {
                     case R.id.profile_setting:
                         Intent intent = new Intent(getActivity(), UserSettingActivity.class);
-                        startActivity(intent);
+                        startActivityForResult(intent, LAUNCH_PROFILE);
                         break;
                 }
                 return false;
             }
         });
-        getProfile();
+
+        get();
 
         circleImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,49 +83,53 @@ public class ProfileFragment extends Fragment {
         });
     }
 
-    private void getProfile() {
-        class GetProfile extends AsyncTask<Void, Void, Profile> {
+    private void get() {
+
+        class GetUser extends AsyncTask<Void, Void, User> {
 
             @Override
-            protected Profile doInBackground(Void... voids) {
-                Profile profile = ProfileDatabaseClient
+            protected User doInBackground(Void... voids) {
+                return UserDatabaseClient
                         .getInstance(getContext())
                         .getDatabase()
-                        .profileDao()
-                        .getProfile();
-
-                return profile;
+                        .userDao()
+                        .getUser();
             }
 
             @Override
-            protected void onPostExecute(Profile profile) {
-                super.onPostExecute(profile);
+            protected void onPostExecute(User user) {
+                super.onPostExecute(user);
+                setUser(user);
                 try {
 
-                    if (profile.name == "") {
+                    if (user.name == "") {
                         nameField.setText("-");
                     } else {
-                        nameField.setText(profile.name);
+                        nameField.setText(user.name);
                     }
 
-                    if (profile.email == "") {
+                    if (user.email == "") {
                         emailField.setText("-");
                     } else {
-                        emailField.setText(profile.email);
+                        emailField.setText(user.email);
                     }
 
-                    if (profile.telephone == "") {
+                    if (user.telephone == "") {
                         telephoneField.setText("-");
                     } else {
-                        telephoneField.setText(profile.telephone);
+                        telephoneField.setText(user.telephone);
                     }
 
-                    System.out.println(profile.address);
-
-                    if (profile.address == "") {
+                    if (user.address == "") {
                         addressField.setText("-");
                     } else {
-                        addressField.setText(profile.address);
+                        addressField.setText(user.address);
+                    }
+
+                    if (user.dob == "") {
+                        dobField.setText("-");
+                    } else {
+                        dobField.setText(user.dob);
                     }
 
                 } catch (Exception ex) {
@@ -129,7 +138,21 @@ public class ProfileFragment extends Fragment {
             }
         }
 
-        GetProfile getProfile = new GetProfile();
-        getProfile.execute();
+        GetUser getUser = new GetUser();
+        getUser.execute();
+    }
+
+    private void setUser(User user) {
+        this.user = user;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == LAUNCH_PROFILE) {
+            if (resultCode == Activity.RESULT_CANCELED) {
+                get();
+            }
+        }
     }
 }

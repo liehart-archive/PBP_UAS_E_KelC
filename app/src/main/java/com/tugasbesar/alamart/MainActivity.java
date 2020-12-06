@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,22 +18,35 @@ import android.util.DisplayMetrics;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.tugasbesar.alamart.api.AlamartAPI;
+import com.tugasbesar.alamart.Models.User;
+import com.tugasbesar.alamart.Models.UserDatabaseClient;
 import com.tugasbesar.alamart.views.auth.AuthActivity;
 import com.tugasbesar.alamart.map.MapsActivity;
 import com.tugasbesar.alamart.profile.ProfileFragment;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-    FirebaseAuth firebaseAuth;
-    FirebaseUser user;
+    private User user;
     BottomNavigationView navigationView;
     Intent intent;
     SharedPreferences sharedPreferences;
@@ -67,13 +81,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-        firebaseAuth = FirebaseAuth.getInstance();
-        user = firebaseAuth.getCurrentUser();
-
-        if (user == null) {
-            intent = new Intent(this, AuthActivity.class);
-            startActivity(intent);
-        }
+        getCurrentUser();
 
         sharedPreferences = getSharedPreferences("locale", MODE_PRIVATE);
         String locale = sharedPreferences.getString("value", null);
@@ -83,11 +91,11 @@ public class MainActivity extends AppCompatActivity {
             editor.commit();
         }
 
-//        if (locale.equals("en_US")) {
-//            setApplicationLocale("en");
-//        } else {
-//            setApplicationLocale("id");
-//        }
+        if (locale.equals("en_US")) {
+            setApplicationLocale("en");
+        } else {
+            setApplicationLocale("id");
+        }
 
         setContentView(R.layout.activity_main);
 
@@ -126,6 +134,77 @@ public class MainActivity extends AppCompatActivity {
 //        BadgeDrawable badgeDrawable = navigationView.getOrCreateBadge(R.id.cart_page);
 //        badgeDrawable.isVisible();
 //        badgeDrawable.setNumber(99);
+    }
+
+    private void getCurrentUser() {
+        sharedPreferences = getSharedPreferences("token", MODE_PRIVATE);
+        String token = sharedPreferences.getString("value", null);
+        if (token == null) {
+            intent = new Intent(this, AuthActivity.class);
+            startActivity(intent);
+        }
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, AlamartAPI.AUTH_API, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    if(obj.getString("success").equals("true")) {
+                        JSONObject jUser = obj.getJSONObject("data");
+                        Gson gson = new GsonBuilder().create();
+                        user = gson.fromJson(jUser.toString(), User.class);
+                        save();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                intent = new Intent(getApplicationContext(), AuthActivity.class);
+                startActivity(intent);
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                params.put("Authorization", "Bearer " + token);
+                return params;
+            }
+        };
+
+        requestQueue.add(stringRequest);
+    }
+
+    private void save() {
+
+        final User user = this.user;
+
+        class SaveUser extends AsyncTask<Void, Void, Void> {
+
+            @Override
+            protected Void doInBackground(Void... voids) {
+                UserDatabaseClient
+                        .getInstance(getApplicationContext())
+                        .getDatabase()
+                        .userDao()
+                        .insert(user);
+
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+            }
+        }
+
+        SaveUser saveUser = new SaveUser();
+        saveUser.execute();
     }
 
     @Override
