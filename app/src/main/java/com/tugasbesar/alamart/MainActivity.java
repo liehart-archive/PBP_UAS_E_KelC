@@ -121,6 +121,9 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.cart_page:
                         fragment = new CartFragment();
                         break;
+                    case R.id.request_page:
+                        fragment = new RequestBarangFragment();
+                        break;
                     case R.id.profile_page:
                         fragment = new ProfileFragment();
                         break;
