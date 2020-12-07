@@ -22,6 +22,9 @@ public interface ApiInterface {
     Call<GetItems> getItems(
             @Query("page") int pageIndex
     );
+    @GET("items/{id}")
+    Call<UserResponse> getBarangById(@Path("id") String id,
+                                   @Query("data") String data);
 
     @POST("barang")
     @FormUrlEncoded
@@ -37,6 +40,6 @@ public interface ApiInterface {
                                     @Field("harga") String harga);
 
     @POST("barang/delete/{id}")
-    Call<UserResponse> deleteUser(@Path("id")String id);
+    Call<UserResponse> deleteBarang(@Path("id")String id);
 
 }

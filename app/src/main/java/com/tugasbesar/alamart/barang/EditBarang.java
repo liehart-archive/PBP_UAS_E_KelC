@@ -53,26 +53,26 @@ import static com.android.volley.Request.Method.PUT;
 
 public class EditBarang extends Fragment {
 
-    private TextInputEditText txtNamaBuku, txtNamaPengarang, txtHarga;
+    private TextInputEditText txtNama, txtDeskripsi, txtHarga;
     private ImageView ivGambar;
     private Button btnSimpan, btnBatal, btnUnggah;
     private String status, selected;
-    private int idBuku;
+    private int idBarang;
     private View view;
     private Bitmap bitmap;
     private Uri selectedImage = null;
     private static final int PERMISSION_CODE = 1000;
     private String imageString;
 
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//                             Bundle savedInstanceState) {
-//        view = inflater.inflate(R.layout.activity_edit_barang, container, false);
-//        init();
-//        setAttribut();
-//
-//        return view;
-//    }
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.activity_edit_barang, container, false);
+        init();
+        setAttribut();
+
+        return view;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -85,7 +85,7 @@ public class EditBarang extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
     }
 
-//    @Override
+    @Override
 //    public void onPrepareOptionsMenu(Menu menu) {
 //        super.onPrepareOptionsMenu(menu);
 //        if(menu.findItem(R.id.btnSearch) != null)
@@ -93,119 +93,119 @@ public class EditBarang extends Fragment {
 //        if(menu.findItem(R.id.btnAdd) != null)
 //            menu.findItem(R.id.btnAdd).setVisible(false);
 //    }
-//
-//    public void init(){
-//        bae   = (Buku) getArguments().getSerializable("buku");
-//        txtNamaBuku         = view.findViewById(R.id.txtnamaBuku);
-//        txtNamaPengarang    = view.findViewById(R.id.txtPengarang);
-//        txtHarga            = view.findViewById(R.id.txtHargaBuku);
-//        btnSimpan           = view.findViewById(R.id.btnSimpan);
-//        btnBatal            = view.findViewById(R.id.btnBatal);
-//        btnUnggah           = view.findViewById(R.id.btnUnggah);
-//        ivGambar            = view.findViewById(R.id.ivGambar);
-//
-//        status = getArguments().getString("status");
-//        if(status.equals("edit"))
-//        {
-//            idBuku = buku.getIdBuku();
-//            txtNamaBuku.setText(buku.getNamaBuku());
-//            txtNamaPengarang.setText(buku.getPengarang());
-//            txtHarga.setText(String.valueOf(Math.round(buku.getHarga())));
-//            Glide.with(view.getContext())
-//                    .load(BukuAPI.URL_IMAGE +buku.getGambar())
-//                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-//                    .skipMemoryCache(true)
-//                    .into(ivGambar);
-//        }
-//    }
-//
-//    private void setAttribut() {
-//        btnUnggah.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                LayoutInflater layoutInflater = LayoutInflater.from(view.getContext());
-//                View view = layoutInflater.inflate(R.layout.pilih_media, null);
-//
-//                final AlertDialog alertD = new AlertDialog.Builder(view.getContext()).create();
-//
-//                Button btnKamera = (Button) view.findViewById(R.id.btnKamera);
-//                Button btnGaleri = (Button) view.findViewById(R.id.btnGaleri);
-//
-//                btnKamera.setOnClickListener(new View.OnClickListener() {
-//                    public void onClick(View v) {
-//                        selected="kamera";
-//                        if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.M)
-//                        {
-//                            if(getActivity().checkSelfPermission(Manifest.permission.CAMERA)==
-//                                    PackageManager.PERMISSION_DENIED ||
-//                                    getActivity().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)==
-//                                            PackageManager.PERMISSION_DENIED){
-//                                String[] permission = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
-//                                requestPermissions(permission,PERMISSION_CODE);
-//                            }
-//                            else{
-//                                openCamera();
-//                            }
-//                        }
-//                        else{
-//                            openCamera();
-//                        }
-//                        alertD.dismiss();
-//                    }
-//                });
-//
-//                btnGaleri.setOnClickListener(new View.OnClickListener() {
-//                    public void onClick(View v) {
-//                        selected="galeri";
-//                        if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.M)
-//                        {
-//                            if(getActivity().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)==
-//                                    PackageManager.PERMISSION_DENIED){
-//                                String[] permission = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
-//                                requestPermissions(permission,PERMISSION_CODE);
-//                            }
-//                            else{
-//                                openGallery();
-//                            }
-//                        }
-//                        else{
-//                            openGallery();
-//                        }
-//                        alertD.dismiss();
-//                    }
-//                });
-//
-//                alertD.setView(view);
-//                alertD.show();
-//            }
-//        });
-//
-//        btnSimpan.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                String namaBuku  = txtNamaBuku.getText().toString();
-//                String pengarang = txtNamaPengarang.getText().toString();
-//
-//                if(namaBuku.isEmpty() || pengarang.isEmpty() || txtHarga.getText().toString().isEmpty())
-//                    Toast.makeText(getContext(), "Data Tidak Boleh Kosong !", Toast.LENGTH_SHORT).show();
-//                else{
-//                    Double harga     = Double.parseDouble(txtHarga.getText().toString());
-//                    buku = new Buku(namaBuku, pengarang, harga);
-//                    if(status.equals("tambah"))
-//                        tambahBuku(namaBuku, pengarang, harga, imageString);
-//                    else
-//                        editBuku(idBuku, namaBuku, pengarang, harga, imageString);
-//                }
-//            }
-//        });
-//
-//        btnBatal.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                loadFragment(new ViewsBuku());
-//            }
-//        });
-//    }
+
+    public void init(){
+        barang   = (Barang) getArguments().getSerializable("Barang");
+        txtNama             = view.findViewById(R.id.txtnama);
+        txtDeskripsi        = view.findViewById(R.id.txtDeskripsi);
+        txtHarga            = view.findViewById(R.id.txtHarga);
+        btnSimpan           = view.findViewById(R.id.btnUpdate);
+        btnBatal            = view.findViewById(R.id.btnCancel);
+        btnUnggah           = view.findViewById(R.id.btnUnggah);
+        ivGambar            = view.findViewById(R.id.ivGambar);
+
+        status = getArguments().getString("status");
+        if(status.equals("edit"))
+        {
+            idBarang = barang.getId();
+            txtNamaBarang.setText(barang.getNama());
+            txtDeskripsi.setText(barang.getDeskripsi());
+            txtHarga.setText(String.valueOf(Math.round(barang.getHarga())));
+            Glide.with(view.getContext())
+                    .load(BarangAPI.URL_IMAGE +buku.getGambar())
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
+                    .into(ivGambar);
+        }
+    }
+
+    private void setAttribut() {
+        btnUnggah.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LayoutInflater layoutInflater = LayoutInflater.from(view.getContext());
+                View view = layoutInflater.inflate(R.layout.pilih_media, null);
+
+                final AlertDialog alertD = new AlertDialog.Builder(view.getContext()).create();
+
+                Button btnKamera = (Button) view.findViewById(R.id.btnKamera);
+                Button btnGaleri = (Button) view.findViewById(R.id.btnGaleri);
+
+                btnKamera.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        selected="kamera";
+                        if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.M)
+                        {
+                            if(getActivity().checkSelfPermission(Manifest.permission.CAMERA)==
+                                    PackageManager.PERMISSION_DENIED ||
+                                    getActivity().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)==
+                                            PackageManager.PERMISSION_DENIED){
+                                String[] permission = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                                requestPermissions(permission,PERMISSION_CODE);
+                            }
+                            else{
+                                openCamera();
+                            }
+                        }
+                        else{
+                            openCamera();
+                        }
+                        alertD.dismiss();
+                    }
+                });
+
+                btnGaleri.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        selected="galeri";
+                        if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.M)
+                        {
+                            if(getActivity().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)==
+                                    PackageManager.PERMISSION_DENIED){
+                                String[] permission = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                                requestPermissions(permission,PERMISSION_CODE);
+                            }
+                            else{
+                                openGallery();
+                            }
+                        }
+                        else{
+                            openGallery();
+                        }
+                        alertD.dismiss();
+                    }
+                });
+
+                alertD.setView(view);
+                alertD.show();
+            }
+        });
+
+        btnSimpan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String nama  = txtNama.getText().toString();
+                String harga = txtNamaPengarang.getText().toString();
+
+                if(namaBuku.isEmpty() || pengarang.isEmpty() || txtHarga.getText().toString().isEmpty())
+                    Toast.makeText(getContext(), "Data Tidak Boleh Kosong !", Toast.LENGTH_SHORT).show();
+                else{
+                    Double harga     = Double.parseDouble(txtHarga.getText().toString());
+                    Produk = new Produk(name, harga, deskripsi);
+                    if(status.equals("tambah"))
+                        tambahBarang(namaBuku, pengarang, harga, imageString);
+                    else
+                        editBuku(idBuku, namaBuku, pengarang, harga, imageString);
+                }
+            }
+        });
+
+        btnBatal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadFragment(new ViewsBarang());
+            }
+        });
+    }
 
     private void openGallery(){
         Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);

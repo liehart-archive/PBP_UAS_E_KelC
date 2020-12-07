@@ -17,11 +17,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
+import com.tugasbesar.alamart.Models.Barang;
 import com.tugasbesar.alamart.R;
 import com.tugasbesar.alamart.api.ApiClient;
 import com.tugasbesar.alamart.api.ApiInterface;
 import com.tugasbesar.alamart.api.UserResponse;
-import com.tugasbesar.alamart.Models.Barang;
+
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -36,7 +37,10 @@ public class DetailBarangFragment extends DialogFragment {
 
     private TextView txtNama, txtDeskripsi, txtHarga;
     private ImageView ivBarang;
-    private String sIdBarang, sNama, sDeskripsi, sHarga;
+    private String sIdBarang;
+    private String sNama;
+    private String sDeskripsi;
+    private int sHarga;
     private ImageButton ibClose;
     private ProgressDialog progressDialog;
     private Button btnDelete, btnEdit;
@@ -76,90 +80,90 @@ public class DetailBarangFragment extends DialogFragment {
         btnEdit = v.findViewById(R.id.btnEdit);
 
         sIdBarang= getArguments().getString("id", "");
-//        loadUserById(sIdBarang);
+        loadUserById(sIdBarang);
 
         return v;
     }
 
-//    private void loadUserById(String id) {
-//        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-//        Call<Barang> add = apiService.getBarangById(id, "data");
-//
-//        add.enqueue(new Callback<UserResponse>() {
-//            @Override
-//            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
-//                sNama = response.body().getlist().get(0).getNama();
-//                sDeskripsi = response.body().getlist().get(0).getNim();
-//                sHarga = response.body().getUsers().get(0).getFakultas();
-//
-//                txtNama.setText(sNama);
-//                txtDeskripsi.setText(sDeskripsi);
-//                txtHarga.setText(sHarga);
-//
-//                progressDialog.dismiss();
-//
-//                list = response.body().getBarang();
-//                final Barang barang = list.get(0);
-//
-//                btnDelete.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        deleteBarang(sIdBarang);
-//                    }
-//                });
-//
-//                btnEdit.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        Intent intent = new Intent(getActivity(), EditBarang.class);
-//                        Bundle bundle = new Bundle();
-//                        bundle.putString("id", list.getId());
-//                        intent.putExtras(bundle);
-//                        startActivity(intent);
-//                    }
-//                });
-//            }
-//
-//            @Override
-//            public void onFailure(Call<UserResponse> call, Throwable t) {
-//                Toast.makeText(getContext(), "Kesalahan Jaringan", Toast.LENGTH_SHORT).show();
-//                progressDialog.dismiss();
-//            }
-//        });
-//    }
+    private void loadUserById(String id) {
+        ApiInterface apiService = ApiClient.getRetrofit().create(ApiInterface.class);
+        Call<UserResponse> add = apiService.getBarangById(id, "data");
 
-//    private void deleteBarang(final String sIdUser) {
-//        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
-//        alertDialogBuilder.setMessage("Are you sure, You wanted to make decision");
-//        alertDialogBuilder.setPositiveButton("yes",
-//                new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface arg0, int arg1) {
-//                        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-//                        Call<UserResponse> call = apiService.deleteBarangUser(sIdUser);
-//
-//                        call.enqueue(new Callback<UserResponse>() {
-//                            @Override
-//                            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
-//                                Toast.makeText(getContext(), "User berhasil dihapus", Toast.LENGTH_SHORT).show();
-//                            }
-//
-//                            @Override
-//                            public void onFailure(Call<UserResponse> call, Throwable t) {
-//                                Toast.makeText(getContext(), "Kesalahan Jaringan", Toast.LENGTH_SHORT).show();
-//                            }
-//                        });
-//                    }
-//                });
-//
-//        alertDialogBuilder.setNegativeButton("No",new DialogInterface.OnClickListener() {
-//            public void onClick(DialogInterface dialog, int which) {
-//
-//            }
-//        });
-//
-//        AlertDialog alertDialog = alertDialogBuilder.create();
-//        alertDialog.show();
-//    }
+        add.enqueue(new Callback<UserResponse>() {
+            @Override
+            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
+                sNama = response.body().getBarang().get(0).getNama();
+                sDeskripsi = response.body().getBarang().get(0).getDeskripsi();
+                sHarga = response.body().getBarang().get(0).getHarga();
+
+                txtNama.setText(sNama);
+                txtDeskripsi.setText(sDeskripsi);
+                txtHarga.setText(sHarga);
+
+                progressDialog.dismiss();
+
+                list = response.body().getBarang();
+                final Barang barang = list.get(0);
+
+                btnDelete.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        deleteBarang(sIdBarang);
+                    }
+                });
+
+                btnEdit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(getActivity(), EditBarang.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("id", list.getId());
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(Call<UserResponse> call, Throwable t) {
+                Toast.makeText(getContext(), "Kesalahan Jaringan", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
+            }
+        });
+    }
+
+    private void deleteBarang(final String sIdBarang) {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
+        alertDialogBuilder.setMessage("Are you sure, You wanted to make decision");
+        alertDialogBuilder.setPositiveButton("yes",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        ApiInterface apiService = ApiClient.getRetrofit().create(ApiInterface.class);
+                        Call<UserResponse> call = apiService.deleteBarang(sIdBarang);
+
+                        call.enqueue(new Callback<UserResponse>() {
+                            @Override
+                            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
+                                Toast.makeText(getContext(), "User berhasil dihapus", Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void onFailure(Call<UserResponse> call, Throwable t) {
+                                Toast.makeText(getContext(), "Kesalahan Jaringan", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                });
+
+        alertDialogBuilder.setNegativeButton("No",new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
 
 }

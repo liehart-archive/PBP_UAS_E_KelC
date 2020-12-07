@@ -1,6 +1,10 @@
 package com.tugasbesar.alamart.api;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.tugasbesar.alamart.Models.Barang;
+
+import java.util.List;
 
 public class UserResponse {
     @SerializedName("success")
@@ -10,7 +14,8 @@ public class UserResponse {
     String message;
 
     @SerializedName("data")
-    String data = null;
+    @Expose
+    private List<Barang> data = null;
 
     public Boolean getSuccess() {
         return success;
@@ -28,11 +33,11 @@ public class UserResponse {
         this.message = message;
     }
 
-    public String getData() {
+    public List<Barang> getBarang() {
         return data;
     }
 
-    public void setData(String data) {
+    public void setData(List<Barang> users) {
         this.data = data;
     }
 }
