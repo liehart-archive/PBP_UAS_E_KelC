@@ -1,13 +1,17 @@
 package com.tugasbesar.alamart.Adapters;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -15,6 +19,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.tugasbesar.alamart.Models.Barang;
 import com.tugasbesar.alamart.R;
 import com.tugasbesar.alamart.api.AlamartAPI;
+import com.tugasbesar.alamart.barang.DetailBarangFragment;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -54,6 +59,19 @@ public class AdapterBarang extends RecyclerView.Adapter<AdapterBarang.adapterBar
         } else {
             holder.ivBarang.setImageDrawable(context.getDrawable(R.drawable.ic_baseline_broken_image_24));
         }
+        holder.mParent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
+                DetailBarangFragment dialog = new DetailBarangFragment();
+                dialog.show(manager, "dialog");
+
+                Bundle args = new Bundle();
+                args.putString("id", String.valueOf(barang.getId()));
+                dialog.setArguments(args);
+            }
+        });
+
     }
 
     @Override
@@ -64,6 +82,7 @@ public class AdapterBarang extends RecyclerView.Adapter<AdapterBarang.adapterBar
     public class adapterBarangViewHolder extends RecyclerView.ViewHolder {
         private TextView txtNama, txtDeskripsi, txtHarga;
         private ImageView ivBarang;
+        private LinearLayout mParent;
 
         public adapterBarangViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -71,6 +90,7 @@ public class AdapterBarang extends RecyclerView.Adapter<AdapterBarang.adapterBar
             txtDeskripsi = itemView.findViewById(R.id.tvItemDescription);
             txtHarga = itemView.findViewById(R.id.tvItemPrice);
             ivBarang = itemView.findViewById(R.id.ivBarang);
+            mParent = itemView.findViewById(R.id.linearLayout);
         }
     }
 }
