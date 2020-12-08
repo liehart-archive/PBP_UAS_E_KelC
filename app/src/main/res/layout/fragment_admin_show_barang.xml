@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@color/white"
-    tools:context=".barang.DetailBarangFragment">
+    android:background="@color/white">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -15,10 +13,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:text="Detail Barang"/>
@@ -30,10 +28,11 @@
             android:layout_alignParentRight="true"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/ic_baseline_close_24"
             android:foreground="?android:attr/selectableItemBackground"/>
+
     </RelativeLayout>
 
     <LinearLayout
@@ -49,9 +48,9 @@
             app:cardCornerRadius="6dp">
 
             <LinearLayout
-                android:layout_margin="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="20dp"
                 android:paddingBottom="10dp"
                 android:orientation="vertical">
 
@@ -59,133 +58,127 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:cardBackgroundColor="#EDEBEB"
-                        app:cardCornerRadius="5dp">
-
-                        <ImageView
-                            android:id="@+id/ivBarang"
-                            android:layout_width="match_parent"
-                            android:layout_height="250dp"
-                            android:scaleType="centerCrop" />
-                    </androidx.cardview.widget.CardView>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
                             android:textSize="20dp"
                             android:textStyle="bold"
-                            android:text="Nama"
-                            android:textColor="@color/black"/>
+                            android:textColor="@color/black"
+                            android:text="Nama"/>
+
                         <TextView
-                            android:id="@+id/tvItemName"
+                            android:id="@+id/twNama"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
-                            android:layout_alignParentRight="true"
                             android:layout_marginEnd="-1dp"
-                            android:hint="Nama"
+                            android:hint="Barang"
                             android:textAlignment="textEnd"
-                            android:textColor="@color/black"
-                            android:textSize="20dp"/>
+                            android:textSize="20dp"
+                            android:textColor="@color/black"/>
+
                     </RelativeLayout>
 
-
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
                             android:textSize="20dp"
                             android:textStyle="bold"
-                            android:text="Deskripsi"
-                            android:textColor="@color/black"/>
+                            android:textColor="@color/black"
+                            android:text="Harga"/>
+
                         <TextView
-                            android:id="@+id/tvItemDescription"
+                            android:id="@+id/twHarga"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
-                            android:layout_alignParentRight="true"
+                            android:layout_marginEnd="-1dp"
+                            android:hint="Harga"
+                            android:textAlignment="textEnd"
+                            android:textSize="20dp"
+                            android:textColor="@color/black"/>
+
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:textSize="20dp"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:text="Deskripsi"/>
+
+                        <TextView
+                            android:id="@+id/twDeskripsi"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
                             android:layout_marginEnd="-1dp"
                             android:hint="Deskripsi"
                             android:textAlignment="textEnd"
-                            android:textColor="@color/black"
-                            android:textSize="20dp"/>
-                    </RelativeLayout>
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentLeft="true"
                             android:textSize="20dp"
-                            android:textStyle="bold"
-                            android:text="Harga"
                             android:textColor="@color/black"/>
-                        <TextView
-                            android:id="@+id/tvItemPrice"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentRight="true"
-                            android:layout_marginEnd="-1dp"
-                            android:hint="harga"
-                            android:textAlignment="textEnd"
-                            android:textColor="@color/black"
-                            android:textSize="20dp"/>
-                    </RelativeLayout>
+
+                    </LinearLayout>
+
                 </LinearLayout>
+
             </LinearLayout>
+
         </androidx.cardview.widget.CardView>
 
-
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/footer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:background="@color/white"
+            android:orientation="horizontal"
             android:padding="20dp">
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnDelete"
-                android:layout_width="100dp"
+                android:id="@+id/btnDelte"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="DELETE"
-                android:textStyle="bold"
+                android:text="Delete"
                 android:textColor="@color/black"
-                android:layout_alignParentLeft="true"
-                android:layout_marginHorizontal="10dp"
-                android:layout_marginBottom="10dp"
-                android:backgroundTint="@color/pink"/>
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnEdit"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:text="EDIT"
-                android:textColor="@color/black"
-                android:textStyle="bold"
+                android:layout_weight="0.5"
                 android:layout_alignParentRight="true"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginBottom="10dp"
                 android:backgroundTint="@color/choco"/>
-        </RelativeLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnEdit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Edit"
+                android:textColor="@color/black"
+                android:layout_weight="0.5"
+                android:layout_alignParentRight="true"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginBottom="10dp"
+                android:backgroundTint="@color/choco"/>
+
+        </LinearLayout>
+
     </LinearLayout>
 
 </LinearLayout>

@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class CartSpaceDecorator extends RecyclerView.ItemDecoration {
 
-    private int space;
+    private final int space;
 
     public CartSpaceDecorator(int space) {
         this.space = space;

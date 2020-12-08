@@ -1,4 +1,4 @@
-package com.tugasbesar.alamart.Models;
+package com.tugasbesar.alamart.barang;
 
 public class Barang {
 

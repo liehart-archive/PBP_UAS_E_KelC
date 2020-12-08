@@ -13,9 +13,13 @@
         android:roundIcon="@mipmap/splash_logo_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Launcher">
-        <activity android:name=".utilities.CameraActivity"></activity>
+        <activity android:name=".views.auth.AdminActivity"></activity>
+        <activity android:name=".barang.EditBarangActivity" />
+        <activity android:name=".barang.AddBarangActivity" />
+        <activity android:name=".requestitem.AddRequestItemActivity" />
+        <activity android:name=".requestitem.EditRequestItemActivity" />
+        <activity android:name=".utilities.CameraActivity" />
         <activity android:name=".profile.ProfileEditActivity" />
-        <activity android:name=".ExploreActivity" />
         <activity
             android:name=".search.SearchActivity"
             android:windowSoftInputMode="stateVisible" />
@@ -25,6 +29,7 @@
             android:label="@string/title_activity_user_setting" />
         <activity android:name=".views.auth.AuthActivity" />
         <activity android:name=".map.MapsActivity" />
+        <activity android:name=".barang.Edit" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

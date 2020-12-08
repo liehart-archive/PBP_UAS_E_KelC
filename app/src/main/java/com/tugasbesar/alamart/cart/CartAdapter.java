@@ -1,6 +1,5 @@
 package com.tugasbesar.alamart.cart;
 
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.view.LayoutInflater;
@@ -8,14 +7,10 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
-import androidx.loader.content.AsyncTaskLoader;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tugasbesar.alamart.BR;
-import com.tugasbesar.alamart.CartFragment;
 import com.tugasbesar.alamart.R;
 import com.tugasbesar.alamart.databinding.AdapterCartBinding;
 
@@ -23,8 +18,8 @@ import java.util.List;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> implements CartClickListener {
 
-    private Context context;
-    private List<Cart> result;
+    private final Context context;
+    private final List<Cart> result;
 
     public CartAdapter(Context context, List<Cart> result) {
         this.context = context;

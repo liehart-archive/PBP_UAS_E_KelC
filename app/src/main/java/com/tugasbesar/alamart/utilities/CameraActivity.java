@@ -1,9 +1,5 @@
 package com.tugasbesar.alamart.utilities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
@@ -12,6 +8,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.material.button.MaterialButton;
 import com.tugasbesar.alamart.R;
@@ -30,19 +30,19 @@ public class CameraActivity extends AppCompatActivity {
 
         if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA)
                 == PackageManager.PERMISSION_DENIED) {
-            ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.CAMERA}, 100);
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 100);
         }
 
         button = findViewById(R.id.btnTake);
 
         try {
-            mCamera= android.hardware.Camera.open();
-        }catch (Exception e){
-            Log.d("error", "Failed to get camera"+ e.getMessage());
+            mCamera = android.hardware.Camera.open();
+        } catch (Exception e) {
+            Log.d("error", "Failed to get camera" + e.getMessage());
         }
 
-        if(mCamera!=null){
-            mCameraView= new CameraView(this, mCamera);
+        if (mCamera != null) {
+            mCameraView = new CameraView(this, mCamera);
             FrameLayout camera_view = findViewById(R.id.FLCamera);
             camera_view.addView(mCameraView);
         }
@@ -51,7 +51,7 @@ public class CameraActivity extends AppCompatActivity {
         imageClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               finish();
+                finish();
             }
         });
 

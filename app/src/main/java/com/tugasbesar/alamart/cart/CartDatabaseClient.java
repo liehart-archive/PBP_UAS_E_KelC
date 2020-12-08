@@ -5,10 +5,9 @@ import android.content.Context;
 import androidx.room.Room;
 
 public class CartDatabaseClient {
-    private Context context;
     private static CartDatabaseClient databaseClient;
-
-    private CartAppDatabase database;
+    private final Context context;
+    private final CartAppDatabase database;
 
     private CartDatabaseClient(Context context) {
         this.context = context;

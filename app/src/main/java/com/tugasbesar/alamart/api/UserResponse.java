@@ -2,7 +2,7 @@ package com.tugasbesar.alamart.api;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.tugasbesar.alamart.Models.Barang;
+import com.tugasbesar.alamart.barang.Barang;
 
 import java.util.List;
 

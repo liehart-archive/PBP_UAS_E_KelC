@@ -1,7 +1,5 @@
 package com.tugasbesar.alamart.unittest;
 
-import android.widget.Toast;
-
 import com.tugasbesar.alamart.api.ApiClient;
 import com.tugasbesar.alamart.api.ApiInterface;
 import com.tugasbesar.alamart.api.UserResponse;

@@ -4,7 +4,6 @@ import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
-import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -18,13 +17,9 @@ public interface ApiInterface {
             @Field("password") String password
     );
 
-    @GET("items")
-    Call<GetItems> getItems(
-            @Query("page") int pageIndex
-    );
     @GET("items/{id}")
     Call<UserResponse> getBarangById(@Path("id") String id,
-                                   @Query("data") String data);
+                                     @Query("data") String data);
 
     @POST("barang")
     @FormUrlEncoded
@@ -34,12 +29,12 @@ public interface ApiInterface {
 
     @POST("barang/update/{id}")
     @FormUrlEncoded
-    Call<UserResponse> updateBarang(@Path("id")String id,
+    Call<UserResponse> updateBarang(@Path("id") String id,
                                     @Field("nama") String nama,
                                     @Field("deskripsi") String deskripsi,
                                     @Field("harga") String harga);
 
     @POST("barang/delete/{id}")
-    Call<UserResponse> deleteBarang(@Path("id")String id);
+    Call<UserResponse> deleteBarang(@Path("id") String id);
 
 }

@@ -1,9 +1,5 @@
 package com.tugasbesar.alamart;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Intent;
@@ -18,6 +14,10 @@ import android.util.DisplayMetrics;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -30,12 +30,12 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.tugasbesar.alamart.api.AlamartAPI;
 import com.tugasbesar.alamart.Models.User;
 import com.tugasbesar.alamart.Models.UserDatabaseClient;
-import com.tugasbesar.alamart.views.auth.AuthActivity;
+import com.tugasbesar.alamart.api.AlamartAPI;
 import com.tugasbesar.alamart.map.MapsActivity;
 import com.tugasbesar.alamart.profile.ProfileFragment;
+import com.tugasbesar.alamart.views.auth.AuthActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -46,11 +46,11 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-    private User user;
     BottomNavigationView navigationView;
     Intent intent;
     SharedPreferences sharedPreferences;
     boolean doubleTapToExit = false;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,10 +110,6 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.home_page:
                         fragment = new HomeFragment();
                         break;
-//                    case R.id.search_page:
-//                        intent = new Intent(MainActivity.this, SearchActivity.class);
-//                        startActivity(intent);
-//                        break;
                     case R.id.map_page:
                         intent = new Intent(MainActivity.this, MapsActivity.class);
                         startActivity(intent);
@@ -131,12 +127,6 @@ public class MainActivity extends AppCompatActivity {
                 return loadFragment(fragment);
             }
         });
-
-//        Testing buat cart nanti
-
-//        BadgeDrawable badgeDrawable = navigationView.getOrCreateBadge(R.id.cart_page);
-//        badgeDrawable.isVisible();
-//        badgeDrawable.setNumber(99);
     }
 
     private void getCurrentUser() {
@@ -154,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(String response) {
                 try {
                     JSONObject obj = new JSONObject(response);
-                    if(obj.getString("success").equals("true")) {
+                    if (obj.getString("success").equals("true")) {
                         JSONObject jUser = obj.getJSONObject("data");
                         Gson gson = new GsonBuilder().create();
                         user = gson.fromJson(jUser.toString(), User.class);

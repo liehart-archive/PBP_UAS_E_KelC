@@ -1,7 +1,5 @@
 package com.tugasbesar.alamart.unittest;
 
-import android.content.Context;
-
 public interface LoginView {
 
     String getEmail();

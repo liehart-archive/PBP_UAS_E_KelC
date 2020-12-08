@@ -2,6 +2,10 @@ package com.tugasbesar.alamart;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ScrollView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -10,29 +14,14 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.ScrollView;
-import android.widget.Toast;
-
 import com.google.android.material.button.MaterialButton;
-import com.mapbox.mapboxsdk.plugins.annotation.Line;
 import com.tugasbesar.alamart.cart.Cart;
 import com.tugasbesar.alamart.cart.CartAdapter;
 import com.tugasbesar.alamart.cart.CartAppDatabase;
-import com.tugasbesar.alamart.cart.CartDao;
 import com.tugasbesar.alamart.cart.CartDatabaseClient;
 import com.tugasbesar.alamart.cart.CartSpaceDecorator;
 import com.tugasbesar.alamart.databinding.FragmentCartBinding;
-import com.tugasbesar.alamart.profile.Profile;
-import com.tugasbesar.alamart.profile.ProfileDatabaseClient;
 
-import org.w3c.dom.ls.LSException;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class CartFragment extends Fragment {

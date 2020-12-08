@@ -1,12 +1,12 @@
 package com.tugasbesar.alamart.profile;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -18,15 +18,16 @@ import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import com.tugasbesar.alamart.R;
-import com.tugasbesar.alamart.api.AlamartAPI;
 import com.tugasbesar.alamart.Models.User;
 import com.tugasbesar.alamart.Models.UserDatabaseClient;
+import com.tugasbesar.alamart.R;
+import com.tugasbesar.alamart.api.AlamartAPI;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.HashMap;
@@ -114,22 +115,22 @@ public class ProfileEditActivity extends AppCompatActivity {
             nameTxt.setError(null);
         }
 
-        if (alamatTxt.getText().length() <=0 ) {
+        if (alamatTxt.getText().length() <= 0) {
             alamatTxt.setError("Alamat tidak boleh kosong");
         } else {
             alamatTxt.setError(null);
         }
 
-        if (phoneTxt.getText().length() <= 0 ) {
+        if (phoneTxt.getText().length() <= 0) {
             phoneTxt.setError("Nomor telepon tidak boleh kosong");
         } else {
             phoneTxt.setError(null);
         }
 
         if (dobTxt.getText().length() > 0
-        && nameTxt.getText().length() > 0
-        && alamatTxt.getText().length() > 0
-        && phoneTxt.getText().length() > 0) {
+                && nameTxt.getText().length() > 0
+                && alamatTxt.getText().length() > 0
+                && phoneTxt.getText().length() > 0) {
             save();
         }
     }
@@ -142,32 +143,31 @@ public class ProfileEditActivity extends AppCompatActivity {
             public void onResponse(String response) {
                 try {
                     JSONObject obj = new JSONObject(response);
-                    if(obj.getString("success").equals("true")) {
+                    if (obj.getString("success").equals("true")) {
                         saveToDatabase();
                         Toast.makeText(getApplicationContext(), obj.getString("message"), Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                };
+                }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 if (error.networkResponse.statusCode == 404) {
                     try {
-                        JSONObject obj = new JSONObject(new String(error.networkResponse.data, "utf-8"));
-                        if(obj.getString("success").equals("true"))
+                        JSONObject obj = new JSONObject(new String(error.networkResponse.data, StandardCharsets.UTF_8));
+                        if (obj.getString("success").equals("true"))
                             Toast.makeText(getApplicationContext(), obj.getString("message"), Toast.LENGTH_SHORT).show();
-                    } catch (JSONException | UnsupportedEncodingException e) {
+                    } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
             }
         }) {
             @Override
-            protected Map<String, String> getParams()
-            {
-                Map<String, String>  params = new HashMap<String, String>();
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
                 params.put("name", nameTxt.getText().toString());
                 params.put("telephone", phoneTxt.getText().toString());
                 params.put("address", alamatTxt.getText().toString());

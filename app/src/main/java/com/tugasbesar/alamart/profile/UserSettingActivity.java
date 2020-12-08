@@ -119,13 +119,17 @@ public class UserSettingActivity extends AppCompatActivity {
                 }
             });
 
-            if (FirebaseAuth.getInstance().getCurrentUser() == null) {
+            sharedPreferences = getContext().getSharedPreferences("token", MODE_PRIVATE);
+            String token = sharedPreferences.getString("value", null);
+            if (token == null) {
                 screen.removePreference(exit_preference);
             } else {
                 exit_preference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
-                        FirebaseAuth.getInstance().signOut();
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("value", null);
+                        editor.apply();
                         Intent intent = new Intent(getActivity(), AuthActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -134,7 +138,6 @@ public class UserSettingActivity extends AppCompatActivity {
                         return true;
                     }
                 });
-
             }
         }
     }

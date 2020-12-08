@@ -4,8 +4,8 @@ import androidx.core.util.PatternsCompat;
 
 public class LoginPresenter {
 
-    private LoginView view;
-    private LoginService service;
+    private final LoginView view;
+    private final LoginService service;
 
     LoginPresenter(LoginView view, LoginService service) {
         this.view = view;
@@ -19,7 +19,7 @@ public class LoginPresenter {
         } else if (view.getPassword().isEmpty()) {
             view.showPasswordError("Password tidak boleh kosong");
             return;
-        } else if (view.getPassword().length() < 6 ) {
+        } else if (view.getPassword().length() < 6) {
             view.showPasswordError("Password kurang dari 6 karakter");
             return;
         } else if (!PatternsCompat.EMAIL_ADDRESS.matcher(view.getEmail()).matches()) {

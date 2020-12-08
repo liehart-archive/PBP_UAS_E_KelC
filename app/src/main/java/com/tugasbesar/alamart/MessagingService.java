@@ -8,7 +8,7 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 public class MessagingService extends FirebaseMessagingService {
-    private String CHANNEL_ID = "Channel 1";
+    private final String CHANNEL_ID = "Channel 1";
 
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {

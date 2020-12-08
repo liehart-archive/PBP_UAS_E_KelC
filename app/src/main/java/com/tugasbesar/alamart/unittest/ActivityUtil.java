@@ -6,11 +6,12 @@ import android.content.Intent;
 import com.tugasbesar.alamart.MainActivity;
 
 public class ActivityUtil {
-    private Context context;
+    private final Context context;
 
     public ActivityUtil(Context context) {
         this.context = context;
     }
+
     public void startMainActivity() {
         context.startActivity(new Intent(context, MainActivity.class));
     }

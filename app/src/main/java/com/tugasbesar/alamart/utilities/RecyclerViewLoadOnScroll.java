@@ -1,7 +1,5 @@
 package com.tugasbesar.alamart.utilities;
 
-import android.widget.GridLayout;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -10,13 +8,12 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 public abstract class RecyclerViewLoadOnScroll extends RecyclerView.OnScrollListener {
 
+    RecyclerView.LayoutManager layoutManager;
     private int visibleThreshold = 10;
     private int currentItem = 0;
     private int previousTotalItem = 0;
     private boolean loading = true;
-    private int startingItem = 0;
-
-    RecyclerView.LayoutManager layoutManager;
+    private final int startingItem = 0;
 
     public RecyclerViewLoadOnScroll(LinearLayoutManager layoutManager) {
         this.layoutManager = layoutManager;

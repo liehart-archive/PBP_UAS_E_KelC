@@ -5,10 +5,9 @@ import android.content.Context;
 import androidx.room.Room;
 
 public class UserDatabaseClient {
-    private Context context;
     private static UserDatabaseClient databaseClient;
-
-    private UserAppDatabase database;
+    private final Context context;
+    private final UserAppDatabase database;
 
     private UserDatabaseClient(Context context) {
         this.context = context;

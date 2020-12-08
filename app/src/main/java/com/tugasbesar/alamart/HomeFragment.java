@@ -2,19 +2,15 @@ package com.tugasbesar.alamart;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -23,9 +19,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.tugasbesar.alamart.Adapters.AdapterBarang;
-import com.tugasbesar.alamart.Models.Barang;
 import com.tugasbesar.alamart.api.AlamartAPI;
-
+import com.tugasbesar.alamart.barang.Barang;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,7 +28,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class HomeFragment extends Fragment {
 
@@ -84,7 +78,7 @@ public class HomeFragment extends Fragment {
                 try {
                     JSONArray jsonArray = response.getJSONArray("data");
 
-                    if(!list.isEmpty())
+                    if (!list.isEmpty())
                         list.clear();
 
                     for (int i = 0; i < jsonArray.length(); i++) {
@@ -92,7 +86,7 @@ public class HomeFragment extends Fragment {
                         JSONObject jsonObject = (JSONObject) jsonArray.get(i);
 
                         String id = jsonObject.optString("id");
-                        String nama  = jsonObject.optString("nama");
+                        String nama = jsonObject.optString("nama");
                         String deskripsi = jsonObject.optString("deskripsi");
                         String harga = jsonObject.optString("harga");
                         String image = jsonObject.optString("image");
@@ -102,7 +96,7 @@ public class HomeFragment extends Fragment {
                         list.add(barang);
                     }
                     adapter.notifyDataSetChanged();
-                }catch (JSONException e){
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
                 Toast.makeText(view.getContext(), response.optString("message"),

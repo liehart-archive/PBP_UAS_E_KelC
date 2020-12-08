@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="20sp"
-            android:text="Edit Barang"
+            android:text="Edit Request Barang"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold"/>
@@ -73,7 +73,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="10dp"
-                    android:hint="Harga"
+                    android:hint="Perkiraan Harga"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etHarga"
@@ -87,7 +87,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="10dp"
-                    android:hint="Deskripsi"
+                    android:hint="Keterangan"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etKetrangan"
@@ -124,7 +124,7 @@
             android:id="@+id/btnEdit"
             android:layout_width="160dp"
             android:layout_height="wrap_content"
-            android:text="Edit"
+            android:text="UPDATE"
             android:textColor="@color/black"
             android:layout_alignParentRight="true"
             android:layout_marginHorizontal="10dp"

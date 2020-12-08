@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="20sp"
-            android:text="Edit Barang"
+            android:text="Add Barang"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold"/>
@@ -121,10 +121,10 @@
             android:backgroundTint="@color/pink"/>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnEdit"
+            android:id="@+id/btnAdd"
             android:layout_width="160dp"
             android:layout_height="wrap_content"
-            android:text="Edit"
+            android:text="Add"
             android:textColor="@color/black"
             android:layout_alignParentRight="true"
             android:layout_marginHorizontal="10dp"

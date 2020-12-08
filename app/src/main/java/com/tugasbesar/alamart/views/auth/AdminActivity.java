@@ -1,17 +1,15 @@
-package com.tugasbesar.alamart;
+package com.tugasbesar.alamart.views.auth;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -20,9 +18,12 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.tugasbesar.alamart.Adapters.AdapterRequestBarang;
-import com.tugasbesar.alamart.Models.RequestBarang;
+import com.tugasbesar.alamart.Adapters.AdapterBarang;
+import com.tugasbesar.alamart.Adapters.AdapterBarangAdmin;
+import com.tugasbesar.alamart.R;
 import com.tugasbesar.alamart.api.AlamartAPI;
+import com.tugasbesar.alamart.barang.AddBarangActivity;
+import com.tugasbesar.alamart.barang.Barang;
 import com.tugasbesar.alamart.requestitem.AddRequestItemActivity;
 
 import org.json.JSONArray;
@@ -32,59 +33,50 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RequestBarangFragment extends Fragment {
+public class AdminActivity extends AppCompatActivity {
 
-    private AdapterRequestBarang adapter;
+    private AdapterBarangAdmin adapter;
     private RecyclerView recyclerView;
-    private View view;
-    private List<RequestBarang> list = new ArrayList<>();
+    private List<Barang> list = new ArrayList<>();
     private FloatingActionButton fab;
 
-    public RequestBarangFragment() {
-    }
-
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
-    }
+        setContentView(R.layout.activity_admin);
+        loadBarang();
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        view = inflater.inflate(R.layout.fragment_request_barang, container, false);
-
-        fab = view.findViewById(R.id.fab);
+        fab = findViewById(R.id.fab);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getActivity(), AddRequestItemActivity.class);
+                Intent i = new Intent(AdminActivity.this, AddBarangActivity.class);
                 startActivityForResult(i, 0);
             }
         });
-
-        loadRequestBarang();
-
-        return view;
     }
 
-    private void loadRequestBarang() {
+
+
+    private void loadBarang() {
         setAdapter();
-        getRequestBarang();
+        getBarang();
     }
 
-    private void getRequestBarang() {
+    private void getBarang() {
 
-        RequestQueue queue = Volley.newRequestQueue(view.getContext());
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
 
         final ProgressDialog progressDialog;
-        progressDialog = new ProgressDialog(view.getContext());
+        progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("loading....");
-        progressDialog.setTitle("Menampilkan data RequestBarang");
+        progressDialog.setTitle("Menampilkan data barang");
         progressDialog.setProgressStyle(android.app.ProgressDialog.STYLE_SPINNER);
         progressDialog.show();
 
-        final JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, AlamartAPI.REQUEST_API
+        final JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, AlamartAPI.BARANG_API
                 , null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -101,25 +93,26 @@ public class RequestBarangFragment extends Fragment {
 
                         String id = jsonObject.optString("id");
                         String nama = jsonObject.optString("nama");
-                        String deskripsi = jsonObject.optString("keterangan");
+                        String deskripsi = jsonObject.optString("deskripsi");
                         String harga = jsonObject.optString("harga");
+                        String image = jsonObject.optString("image");
 
-                        RequestBarang RequestBarang = new RequestBarang(Integer.parseInt(id), nama, deskripsi, Integer.parseInt(harga));
+                        Barang barang = new Barang(Integer.parseInt(id), nama, deskripsi, Integer.parseInt(harga), image);
 
-                        list.add(RequestBarang);
+                        list.add(barang);
                     }
                     adapter.notifyDataSetChanged();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                Toast.makeText(view.getContext(), response.optString("message"),
+                Toast.makeText(getApplicationContext(), response.optString("message"),
                         Toast.LENGTH_SHORT).show();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 progressDialog.dismiss();
-                Toast.makeText(view.getContext(), error.getMessage(),
+                Toast.makeText(getApplicationContext(), error.getMessage(),
                         Toast.LENGTH_SHORT).show();
             }
         });
@@ -130,13 +123,12 @@ public class RequestBarangFragment extends Fragment {
     private void setAdapter() {
 
         list = new ArrayList<>();
-        recyclerView = view.findViewById(R.id.recycler_view);
-        adapter = new AdapterRequestBarang(view.getContext(), list);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(view.getContext());
+        recyclerView = findViewById(R.id.recycler_view);
+        adapter = new AdapterBarangAdmin(AdminActivity.this, list);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
 
     }
-
 }

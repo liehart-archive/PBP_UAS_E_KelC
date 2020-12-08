@@ -5,10 +5,9 @@ import android.content.Context;
 import androidx.room.Room;
 
 public class ProfileDatabaseClient {
-    private Context context;
     private static ProfileDatabaseClient databaseClient;
-
-    private ProfileAppDatabase database;
+    private final Context context;
+    private final ProfileAppDatabase database;
 
     private ProfileDatabaseClient(Context context) {
         this.context = context;

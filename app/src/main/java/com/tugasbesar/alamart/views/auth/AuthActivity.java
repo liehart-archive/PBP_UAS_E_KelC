@@ -1,9 +1,5 @@
 package com.tugasbesar.alamart.views.auth;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
-import androidx.fragment.app.Fragment;
-
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -15,20 +11,22 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.fragment.app.Fragment;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
 import com.tugasbesar.alamart.R;
 import com.tugasbesar.alamart.cart.CartDatabaseClient;
 import com.tugasbesar.alamart.profile.ProfileDatabaseClient;
 
 public class AuthActivity extends AppCompatActivity {
 
-    private String CHANNEL_ID = "Auth Channel";
-
     FirebaseAuth firebaseAuth;
     FirebaseUser user;
     boolean doubleTapToExit = false;
+    private final String CHANNEL_ID = "Auth Channel";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

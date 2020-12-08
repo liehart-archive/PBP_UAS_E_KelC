@@ -2,14 +2,6 @@ package com.tugasbesar.alamart.views.auth;
 
 import android.content.Context;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
-import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,27 +12,22 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.Fragment;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthUserCollisionException;
-import com.google.firebase.auth.FirebaseUser;
-
-import com.google.gson.JsonIOException;
-import com.google.type.DateTime;
 import com.tugasbesar.alamart.R;
 import com.tugasbesar.alamart.api.AlamartAPI;
 
@@ -48,13 +35,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
-import timber.log.Timber;
 
 public class RegisterFragment extends Fragment {
 
@@ -300,7 +285,7 @@ public class RegisterFragment extends Fragment {
             public void onResponse(String response) {
                 try {
                     JSONObject obj = new JSONObject(response);
-                    if(obj.getString("success").equals("true"))
+                    if (obj.getString("success").equals("true"))
                         Toast.makeText(getContext(), obj.getString("message"), Toast.LENGTH_SHORT).show();
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -316,14 +301,13 @@ public class RegisterFragment extends Fragment {
             public void onErrorResponse(VolleyError error) {
                 if (error.networkResponse.statusCode == 404) {
                     try {
-                        JSONObject obj = new JSONObject(new String(error.networkResponse.data, "utf-8"));
-                        if(obj.getJSONObject("data").getJSONArray("email").get(0) != null) {
+                        JSONObject obj = new JSONObject(new String(error.networkResponse.data, StandardCharsets.UTF_8));
+                        if (obj.getJSONObject("data").getJSONArray("email").get(0) != null) {
                             Toast.makeText(getContext(), "Email sudah terdaftar", Toast.LENGTH_SHORT).show();
                             inputEmailLayout.setError("Email sudah terdaftar");
-                        }
-                        else if(obj.getString("success").equals("true"))
+                        } else if (obj.getString("success").equals("true"))
                             Toast.makeText(getContext(), obj.getString("message"), Toast.LENGTH_SHORT).show();
-                    } catch (JSONException | UnsupportedEncodingException e) {
+                    } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
@@ -332,9 +316,8 @@ public class RegisterFragment extends Fragment {
             }
         }) {
             @Override
-            protected Map<String, String> getParams()
-            {
-                Map<String, String>  params = new HashMap<String, String>();
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
                 params.put("name", inputNama.getText().toString());
                 params.put("email", inputEmail.getText().toString());
                 params.put("password", inputPassword.getText().toString());
