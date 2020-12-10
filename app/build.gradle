@@ -51,6 +51,7 @@ dependencies {
     // implementasi room
     implementation 'androidx.room:room-runtime:2.2.5'
     androidTestImplementation 'androidx.test:rules:1.3.1-alpha02'
+    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.4.0-alpha02'
     annotationProcessor 'androidx.room:room-compiler:2.2.5'
 
     // implementasi material design

@@ -84,8 +84,8 @@ public class MainActivity extends AppCompatActivity {
         getCurrentUser();
 
         sharedPreferences = getSharedPreferences("locale", MODE_PRIVATE);
-        String locale = sharedPreferences.getString("value", null);
-        if (locale == null) {
+        String locale = sharedPreferences.getString("value", "");
+        if (locale.equals("")) {
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString("value", getResources().getConfiguration().getLocales().get(0).toString());
             editor.commit();
@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void getCurrentUser() {
         sharedPreferences = getSharedPreferences("token", MODE_PRIVATE);
-        String token = sharedPreferences.getString("value", null);
+        String token = sharedPreferences.getString("value", "");
         if (token == null) {
             intent = new Intent(this, AuthActivity.class);
             startActivity(intent);

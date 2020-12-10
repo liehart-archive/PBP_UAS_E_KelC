@@ -1,68 +1,40 @@
 package com.tugasbesar.alamart;
 
 
-import androidx.test.espresso.DataInteraction;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewParent;
+
 import androidx.test.espresso.ViewInteraction;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.AndroidJUnit4;
 
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewParent;
-
-import static androidx.test.InstrumentationRegistry.getInstrumentation;
-import static androidx.test.espresso.Espresso.onData;
-import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.Espresso.pressBack;
-import static androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
-import static androidx.test.espresso.action.ViewActions.*;
-import static androidx.test.espresso.assertion.ViewAssertions.*;
-import static androidx.test.espresso.matcher.ViewMatchers.*;
-
-import com.tugasbesar.alamart.R;
-
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
-import org.hamcrest.core.IsInstanceOf;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
+import static androidx.test.espresso.action.ViewActions.replaceText;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.anything;
-import static org.hamcrest.Matchers.is;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class MainActivityTest {
+public class Login_Test {
 
     @Rule
     public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
 
     @Test
-    public void mainActivityTest() {
-        ViewInteraction textInputEditText = onView(
-                allOf(withId(R.id.inputEmail),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.inputEmailLayout),
-                                        0),
-                                0),
-                        isDisplayed()));
-        textInputEditText.perform(replaceText("vriyashartama@gmail.com"), closeSoftKeyboard());
-
-        ViewInteraction textInputEditText2 = onView(
-                allOf(withId(R.id.inputPassword),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.inputPasswordLayout),
-                                        0),
-                                1),
-                        isDisplayed()));
-        textInputEditText2.perform(replaceText("123123"), closeSoftKeyboard());
-
+    public void login_Test() {
         ViewInteraction materialButton = onView(
                 allOf(withId(R.id.btnLogin), withText("Masuk"),
                         childAtPosition(
@@ -73,25 +45,25 @@ public class MainActivityTest {
                         isDisplayed()));
         materialButton.perform(click());
 
-        ViewInteraction textInputEditText3 = onView(
-                allOf(withId(R.id.inputEmail), withText("vriyashartama@gmail.com"),
+        ViewInteraction textInputEditText = onView(
+                allOf(withId(R.id.inputEmail),
                         childAtPosition(
                                 childAtPosition(
                                         withId(R.id.inputEmailLayout),
                                         0),
                                 0),
                         isDisplayed()));
-        textInputEditText3.perform(replaceText("vriyashaa"));
+        textInputEditText.perform(click());
 
-        ViewInteraction textInputEditText4 = onView(
-                allOf(withId(R.id.inputEmail), withText("vriyashaa"),
+        ViewInteraction textInputEditText2 = onView(
+                allOf(withId(R.id.inputEmail),
                         childAtPosition(
                                 childAtPosition(
                                         withId(R.id.inputEmailLayout),
                                         0),
                                 0),
                         isDisplayed()));
-        textInputEditText4.perform(closeSoftKeyboard());
+        textInputEditText2.perform(replaceText("evan"), closeSoftKeyboard());
 
         ViewInteraction materialButton2 = onView(
                 allOf(withId(R.id.btnLogin), withText("Masuk"),
@@ -101,47 +73,37 @@ public class MainActivityTest {
                                         0),
                                 5),
                         isDisplayed()));
-        materialButton.perform(click());
+        materialButton2.perform(click());
+
+        ViewInteraction textInputEditText3 = onView(
+                allOf(withId(R.id.inputEmail), withText("evan"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.inputEmailLayout),
+                                        0),
+                                0),
+                        isDisplayed()));
+        textInputEditText3.perform(click());
+
+        ViewInteraction textInputEditText4 = onView(
+                allOf(withId(R.id.inputEmail), withText("evan"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.inputEmailLayout),
+                                        0),
+                                0),
+                        isDisplayed()));
+        textInputEditText4.perform(replaceText("evan@gmail.com"));
 
         ViewInteraction textInputEditText5 = onView(
-                allOf(withId(R.id.inputEmail), withText("vriyashaa"),
+                allOf(withId(R.id.inputEmail), withText("evan@gmail.com"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(R.id.inputEmailLayout),
                                         0),
                                 0),
                         isDisplayed()));
-        textInputEditText5.perform(replaceText("vriyashaa@gmail.com"));
-
-        ViewInteraction textInputEditText6 = onView(
-                allOf(withId(R.id.inputEmail), withText("vriyashaa@gmail.com"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.inputEmailLayout),
-                                        0),
-                                0),
-                        isDisplayed()));
-        textInputEditText6.perform(closeSoftKeyboard());
-
-        ViewInteraction textInputEditText7 = onView(
-                allOf(withId(R.id.inputPassword), withText("123123"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.inputPasswordLayout),
-                                        0),
-                                1),
-                        isDisplayed()));
-        textInputEditText7.perform(replaceText("123"));
-
-        ViewInteraction textInputEditText8 = onView(
-                allOf(withId(R.id.inputPassword), withText("123"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.inputPasswordLayout),
-                                        0),
-                                1),
-                        isDisplayed()));
-        textInputEditText8.perform(closeSoftKeyboard());
+        textInputEditText5.perform(closeSoftKeyboard());
 
         ViewInteraction materialButton3 = onView(
                 allOf(withId(R.id.btnLogin), withText("Masuk"),
@@ -153,45 +115,15 @@ public class MainActivityTest {
                         isDisplayed()));
         materialButton3.perform(click());
 
-        ViewInteraction textInputEditText9 = onView(
-                allOf(withId(R.id.inputEmail), withText("vriyashaa@gmail.com"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.inputEmailLayout),
-                                        0),
-                                0),
-                        isDisplayed()));
-        textInputEditText9.perform(replaceText("vriyashartama@gmail.com"));
-
-        ViewInteraction textInputEditText10 = onView(
-                allOf(withId(R.id.inputEmail), withText("vriyashartama@gmail.com"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.inputEmailLayout),
-                                        0),
-                                0),
-                        isDisplayed()));
-        textInputEditText10.perform(closeSoftKeyboard());
-
-        ViewInteraction textInputEditText11 = onView(
-                allOf(withId(R.id.inputPassword), withText("123"),
+        ViewInteraction textInputEditText6 = onView(
+                allOf(withId(R.id.inputPassword),
                         childAtPosition(
                                 childAtPosition(
                                         withId(R.id.inputPasswordLayout),
                                         0),
                                 1),
                         isDisplayed()));
-        textInputEditText11.perform(replaceText("123123"));
-
-        ViewInteraction textInputEditText12 = onView(
-                allOf(withId(R.id.inputPassword), withText("123123"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.inputPasswordLayout),
-                                        0),
-                                1),
-                        isDisplayed()));
-        textInputEditText12.perform(closeSoftKeyboard());
+        textInputEditText6.perform(replaceText("12312"), closeSoftKeyboard());
 
         ViewInteraction materialButton4 = onView(
                 allOf(withId(R.id.btnLogin), withText("Masuk"),
@@ -203,7 +135,17 @@ public class MainActivityTest {
                         isDisplayed()));
         materialButton4.perform(click());
 
-        ViewInteraction textInputEditText13 = onView(
+        ViewInteraction textInputEditText7 = onView(
+                allOf(withId(R.id.inputPassword), withText("12312"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.inputPasswordLayout),
+                                        0),
+                                1),
+                        isDisplayed()));
+        textInputEditText7.perform(replaceText("123123"));
+
+        ViewInteraction textInputEditText8 = onView(
                 allOf(withId(R.id.inputPassword), withText("123123"),
                         childAtPosition(
                                 childAtPosition(
@@ -211,17 +153,7 @@ public class MainActivityTest {
                                         0),
                                 1),
                         isDisplayed()));
-        textInputEditText13.perform(replaceText("1231231231231231231231231"));
-
-        ViewInteraction textInputEditText14 = onView(
-                allOf(withId(R.id.inputPassword), withText("1231231231231231231231231"),
-                        childAtPosition(
-                                childAtPosition(
-                                        withId(R.id.inputPasswordLayout),
-                                        0),
-                                1),
-                        isDisplayed()));
-        textInputEditText14.perform(closeSoftKeyboard());
+        textInputEditText8.perform(closeSoftKeyboard());
 
         ViewInteraction materialButton5 = onView(
                 allOf(withId(R.id.btnLogin), withText("Masuk"),
@@ -233,28 +165,28 @@ public class MainActivityTest {
                         isDisplayed()));
         materialButton5.perform(click());
 
-        ViewInteraction textInputEditText15 = onView(
-                allOf(withId(R.id.inputEmail), withText("vriyashartama@gmail.com"),
+        ViewInteraction textInputEditText9 = onView(
+                allOf(withId(R.id.inputEmail), withText("evan@gmail.com"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(R.id.inputEmailLayout),
                                         0),
                                 0),
                         isDisplayed()));
-        textInputEditText15.perform(replaceText("vriyashartam22a@gmail.com"));
+        textInputEditText9.perform(replaceText("evanrisky@gmail.com"));
 
-        ViewInteraction textInputEditText16 = onView(
-                allOf(withId(R.id.inputEmail), withText("vriyashartam22a@gmail.com"),
+        ViewInteraction textInputEditText10 = onView(
+                allOf(withId(R.id.inputEmail), withText("evanrisky@gmail.com"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(R.id.inputEmailLayout),
                                         0),
                                 0),
                         isDisplayed()));
-        textInputEditText16.perform(closeSoftKeyboard());
+        textInputEditText10.perform(closeSoftKeyboard());
 
         ViewInteraction materialButton6 = onView(
-                allOf(withId(R.id.btnLogin), withText("Masuk"),
+                allOf(withId(R.id.btnLogin), withText("Login"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(R.id.fragment_layout),
@@ -262,6 +194,36 @@ public class MainActivityTest {
                                 5),
                         isDisplayed()));
         materialButton6.perform(click());
+
+        ViewInteraction textInputEditText11 = onView(
+                allOf(withId(R.id.inputPassword), withText("123123"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.inputPasswordLayout),
+                                        0),
+                                1),
+                        isDisplayed()));
+        textInputEditText11.perform(replaceText("12341234"));
+
+        ViewInteraction textInputEditText12 = onView(
+                allOf(withId(R.id.inputPassword), withText("12341234"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.inputPasswordLayout),
+                                        0),
+                                1),
+                        isDisplayed()));
+        textInputEditText12.perform(closeSoftKeyboard());
+
+        ViewInteraction materialButton7 = onView(
+                allOf(withId(R.id.btnLogin), withText("Login"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.fragment_layout),
+                                        0),
+                                5),
+                        isDisplayed()));
+        materialButton7.perform(click());
     }
 
     private static Matcher<View> childAtPosition(
